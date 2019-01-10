@@ -103,7 +103,11 @@ public class DriveTrain extends Subsystem {
     /*Begin Drive methods*/
     public void arcadeDrive(Joystick joystick){
     	robotDrive.arcadeDrive(-joystick.getY(), joystick.getX());
-    }
+	}
+	
+	public void curvatureDrive(double speed, double curve, boolean quickTurn){
+		robotDrive.curvatureDrive(speed, curve, quickTurn);
+	}
     
     public void tankDrive(Joystick leftJoystick, Joystick rightJoystick){
     	robotDrive.tankDrive(leftJoystick.getY(), rightJoystick.getY());

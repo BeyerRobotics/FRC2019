@@ -32,6 +32,8 @@ public class Adaptor {
 	public AHRS navx;
 	
 	public DriveTrain driveTrain;
+
+	public IRArray irArray;
 	
 	private Adaptor(){
 		pdp = new PowerDistributionPanel();
@@ -41,6 +43,8 @@ public class Adaptor {
 		navx = new AHRS(CoprocessorMap.NAVX_PORT);
 		
 		driveTrain = DriveTrain.getInstance();
+
+		irArray = IRArray.getInstance();
 	}
 	
 	public static Adaptor getInstance(){
