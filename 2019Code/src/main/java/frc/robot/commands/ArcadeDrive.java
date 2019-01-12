@@ -12,8 +12,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 public class ArcadeDrive extends Command {
-  
-	private Joystick joystick;
+  private Joystick joystick;
 
   public ArcadeDrive(Joystick joystick) {
       //requires(Robot.adaptor.driveTrain);

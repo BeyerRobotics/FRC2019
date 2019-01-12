@@ -47,5 +47,4 @@ public class Adaptor {
 		if(adaptor == null)	adaptor = new Adaptor(); 
 		return adaptor;
 	}
-
 }

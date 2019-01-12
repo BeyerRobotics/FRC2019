@@ -23,5 +23,4 @@ public class EncoderMap {
     public static final int DTR_TICKS_PER_REV = 200;
 
     public static final double ENC_GEAR_CONVERSION = 15./42.;
-
 }

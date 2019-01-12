@@ -11,7 +11,7 @@ package frc.robotMap;
  * Add your docs here.
  */
 public class AutoMap {
-    
-	public static final double kP = 0.04;
 
+    public static final double kP = 0.04;
+    
 }

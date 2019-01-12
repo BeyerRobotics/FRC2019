@@ -14,8 +14,7 @@ import frc.robot.Robot;
  * Add your docs here.
  */
 public class DriveStraightForTime extends TimedCommand {
-  
-	private double speed;
+  private double speed;
 
   public DriveStraightForTime(double timeout, double speed, double entranceAngle) {
       super(timeout);

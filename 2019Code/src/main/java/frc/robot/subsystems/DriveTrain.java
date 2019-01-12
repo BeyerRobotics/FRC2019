@@ -23,8 +23,7 @@ import frc.robotMap.outputs.MotorControllerMap;
  * Add your docs here.
  */
 public class DriveTrain extends Subsystem {
-  
-	private static DriveTrain driveTrain;
+  private static DriveTrain driveTrain;
 	
 	/**Put all ports for drive train motors here, front, back, middle for each side.
 	 * The first port given will act as a 'master' to the remaining motors
@@ -97,6 +96,7 @@ public class DriveTrain extends Subsystem {
     	return driveTrain;
     }
 
+    @Override
     public void initDefaultCommand() {     
     }
     

@@ -14,6 +14,4 @@ import edu.wpi.first.wpilibj.SPI;
  */
 public class CoprocessorMap {
     public static final SPI.Port NAVX_PORT = SPI.Port.kMXP;
-
 }
-

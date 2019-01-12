@@ -11,7 +11,6 @@ package frc.robotMap.outputs;
  * Add your docs here.
  */
 public class MotorControllerMap {
-
     //Drive Train Left
 	public static final int DTL_FRONT = 3;
 	public static final int DTL_MIDDLE = 4;
@@ -29,5 +28,4 @@ public class MotorControllerMap {
 	public static final boolean DTR_FRONT_INV = false;
 	public static final boolean DTR_MIDDLE_INV = true;
 	public static final boolean DTR_BACK_INV = false;
-
 }
