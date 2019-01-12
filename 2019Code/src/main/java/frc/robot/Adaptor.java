@@ -11,7 +11,7 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.*;
 import frc.robotMap.inputs.CoprocessorMap;
 
 /**
@@ -32,6 +32,8 @@ public class Adaptor {
 	public AHRS navx;
 	
 	public DriveTrain driveTrain;
+
+	public Shifters shifters;
 	
 	private Adaptor(){
 		pdp = new PowerDistributionPanel();
@@ -41,6 +43,8 @@ public class Adaptor {
 		navx = new AHRS(CoprocessorMap.NAVX_PORT);
 		
 		driveTrain = DriveTrain.getInstance();
+
+		shifters = Shifters.getInstance();
 	}
 	
 	public static Adaptor getInstance(){
