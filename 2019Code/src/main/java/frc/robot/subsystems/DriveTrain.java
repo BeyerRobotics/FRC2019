@@ -14,7 +14,9 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
+import frc.robot.triggers.IsBrowningOut;
 import frc.robotMap.AutoMap;
 import frc.robotMap.inputs.EncoderMap;
 import frc.robotMap.outputs.MotorControllerMap;
@@ -102,7 +104,15 @@ public class DriveTrain extends Subsystem {
     
     /*Begin Drive methods*/
     public void arcadeDrive(Joystick joystick){
-    	robotDrive.arcadeDrive(-joystick.getY(), joystick.getX());
+		if(IsBrowningOut.get()) {
+			robotDrive.setMaxOutput(0.75);
+			SmartDashboard.putBoolean("Output lowered", true);
+		} else {
+			robotDrive.setMaxOutput(1);
+			SmartDashboard.putBoolean("Output lowered", false);
+		}
+		robotDrive.arcadeDrive(-joystick.getY(), joystick.getX());
+		SmartDashboard.putNumber("Left output", leftMaster.getMotorOutputPercent());
     }
     
     public void tankDrive(Joystick leftJoystick, Joystick rightJoystick){
@@ -113,7 +123,13 @@ public class DriveTrain extends Subsystem {
     	double angle = Robot.adaptor.navx.getAngle();
     	double curve = -angle * AutoMap.kP;
     	robotDrive.curvatureDrive(speed, curve, false);
-    }
+	}
+	
+	public void driveStraightToJoy(Joystick joystick) {
+		double angle = Robot.adaptor.navx.getAngle();
+    	double curve = -angle * AutoMap.kP;
+    	robotDrive.curvatureDrive(-joystick.getY(), curve, false);
+	}
     
     /*Begin Encoder methods*/
     public void reset(){
