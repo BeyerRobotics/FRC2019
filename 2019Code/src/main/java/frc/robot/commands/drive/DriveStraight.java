@@ -5,41 +5,50 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.drive;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class ArcadeDrive extends Command {
-  
-	private Joystick joystick;
+public class DriveStraight extends Command {
+  private Joystick joystick;
+  private double entranceAngle;
 
-  public ArcadeDrive(Joystick joystick) {
-      //requires(Robot.adaptor.driveTrain);
-      this.joystick = joystick;
+  public DriveStraight(Joystick joystick, double entranceAngle) {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+    this.joystick = joystick;
+    this.entranceAngle = entranceAngle;
   }
 
   // Called just before this Command runs the first time
+  @Override
   protected void initialize() {
+    Robot.adaptor.navx.zeroYaw();
+    Robot.adaptor.navx.setAngleAdjustment(-entranceAngle);
   }
 
   // Called repeatedly when this Command is scheduled to run
+  @Override
   protected void execute() {
-    Robot.adaptor.driveTrain.arcadeDrive(joystick);
+    Robot.adaptor.driveTrain.driveStraightToJoy(joystick);
   }
 
   // Make this return true when this Command no longer needs to run execute()
+  @Override
   protected boolean isFinished() {
-      return false;
+    return false;
   }
 
   // Called once after isFinished returns true
+  @Override
   protected void end() {
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
+  @Override
   protected void interrupted() {
   }
 }

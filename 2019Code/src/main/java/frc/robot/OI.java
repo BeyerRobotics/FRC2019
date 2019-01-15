@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robotMap.inputs.JoystickMap;
 import frc.robot.commands.*;
+import frc.robot.commands.drive.*;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -34,7 +35,7 @@ public class OI {
 		
 		getJoystickButton(1,1).whileHeld(new ArcadeDrive(getJoystick(1)));
 
-		getJoystickButton(1,2).whenPressed(new Shift());
+		getJoystickButton(1,2).whileHeld(new StraightShift(getJoystick(1)));
 	}
 	
 	public static OI getInstance(){
