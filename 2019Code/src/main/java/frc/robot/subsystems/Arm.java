@@ -35,9 +35,14 @@ public class Arm extends Subsystem {
     // setDefaultCommand(new MySpecialCommand());
   }
 
+  public void set(double y) {
+    armBrake.set(true);
+    armDriver.set(y);
+  }
+
   public void stop() {
     armDriver.set(0);
-    armBrake.set(true);
+    armBrake.set(false);
   }
 
   public Arm getInstance() {

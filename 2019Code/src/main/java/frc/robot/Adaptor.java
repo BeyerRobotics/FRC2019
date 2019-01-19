@@ -11,6 +11,7 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.DriveTrain;
 import frc.robotMap.inputs.CoprocessorMap;
 
@@ -32,6 +33,8 @@ public class Adaptor {
 	public AHRS navx;
 	
 	public DriveTrain driveTrain;
+
+	public Arm arm;
 	
 	private Adaptor(){
 		pdp = new PowerDistributionPanel();
