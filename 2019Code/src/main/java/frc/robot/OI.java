@@ -9,9 +9,11 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.Shoot;
+import frc.robot.commands.StraightShift;
+import frc.robot.commands.drive.ArcadeDrive;
 import frc.robotMap.inputs.JoystickMap;
-import frc.robot.commands.*;
-import frc.robot.commands.drive.*;
+import frc.robotMap.inputs.ShooterMap;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -30,12 +32,16 @@ public class OI {
 	private static Joystick[] joysticks = {gunner, driverLeft, driverRight};
 	private static JoystickButton[][]  buttons = new JoystickButton[JOYSTICK_NUM][BUTTON_NUM];
 	
+	public Joystick driverController = new Joystick(ShooterMap.OI_DRIVER_CONTROLLER);
+
 	public OI(){
 		createButtons();
 		
 		getJoystickButton(1,1).whileHeld(new ArcadeDrive(getJoystick(1)));
 
 		getJoystickButton(1,2).whileHeld(new StraightShift(getJoystick(1)));
+
+		getJoystickButton(1,3).whenPressed(new Shoot());
 	}
 	
 	public static OI getInstance(){
