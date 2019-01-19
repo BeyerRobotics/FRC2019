@@ -5,17 +5,28 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robotMap.outputs;
+package frc.robot.commands;
+
+import edu.wpi.first.wpilibj.command.InstantCommand;
+import frc.robot.Robot;
 
 /**
  * Add your docs here.
  */
-public class SolenoidMap {
+public class ReleasePusher extends InstantCommand {
+  /**
+   * Add your docs here.
+   */
+  public ReleasePusher() {
+    super();
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+  }
 
-    public static final int SHIFTER_A = 0;
-    public static final int SHIFTER_B = 2;
-
-    public static final int PUSHER_A = 3;
-    public static final int PUSHER_B = 4;
+  // Called once when the command executes
+  @Override
+  protected void initialize() {
+    Robot.adaptor.climber.shiftDown();
+  }
 
 }

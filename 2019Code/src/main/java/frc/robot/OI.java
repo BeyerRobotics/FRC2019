@@ -36,6 +36,9 @@ public class OI {
 		getJoystickButton(1,1).whileHeld(new ArcadeDrive(getJoystick(1)));
 
 		getJoystickButton(1,2).whileHeld(new StraightShift(getJoystick(1)));
+
+		getJoystickButton(1,3).whenPressed(new PushUp());
+		getJoystickButton(1,4).whenPressed(new ReleasePusher());
 	}
 	
 	public static OI getInstance(){
