@@ -34,6 +34,8 @@ public class Adaptor {
 	public DriveTrain driveTrain;
 
 	public Shifters shifters;
+
+	public Serial serial;
 	
 	private Adaptor(){
 		pdp = new PowerDistributionPanel();
@@ -45,6 +47,8 @@ public class Adaptor {
 		driveTrain = DriveTrain.getInstance();
 
 		shifters = Shifters.getInstance();
+
+		serial = Serial.getInstance();
 	}
 	
 	public static Adaptor getInstance(){

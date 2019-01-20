@@ -8,10 +8,13 @@
 package frc.robotMap.inputs;
 
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.SerialPort;
 
 /**
  * Add your docs here.
  */
 public class CoprocessorMap {
     public static final SPI.Port NAVX_PORT = SPI.Port.kMXP;
+
+    public static final SerialPort.Port SERIAL_PORT = SerialPort.Port.kOnboard;
 }

@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -22,6 +23,8 @@ public class Robot extends TimedRobot {
   public static OI oi;
 	public static Adaptor adaptor;
 
+	private String[] input;
+
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -30,11 +33,16 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		oi = OI.getInstance();
 		adaptor = Adaptor.getInstance();
+
+		SmartDashboard.putNumber("Red", 0);
+		SmartDashboard.putNumber("Green", 0);
+		SmartDashboard.putNumber("Blue", 0);
 	}
 
 	@Override
 	public void robotPeriodic() {
-		SmartDashboard.putNumber("Voltage", adaptor.pdp.getVoltage());
+		adaptor.serial.writeColor();
+		//SmartDashboard.putString("Input", adaptor.serial.read());
 	}
 
 	/**
