@@ -61,6 +61,8 @@ public class DriveTrain extends Subsystem {
 	
 	private static Encoder DTLEncoder;
 	private static Encoder DTREncoder;
+	
+	private int startOfBrownOut = 0;
 
     /**Initialize motors and drive encoders here*/
     public DriveTrain() {
@@ -78,7 +80,7 @@ public class DriveTrain extends Subsystem {
     	rightMaster.setInverted(DTR_INVs[0]);
     	rightSlave = new WPI_TalonSRX(DTR_IDs[1]);
     	rightSlave.set(ControlMode.Follower, DTR_IDs[0]);
-    	rightSlave.setInverted(DTR_INVs[1]);
+		rightSlave.setInverted(DTR_INVs[1]);
     	
     	if(DTL_IDs.length == 3){
     		WPI_TalonSRX leftSlaveB = new WPI_TalonSRX(DTL_IDs[2]);
@@ -108,8 +110,12 @@ public class DriveTrain extends Subsystem {
 		if(IsBrowningOut.get()) {
 			robotDrive.setMaxOutput(0.75);
 			SmartDashboard.putBoolean("Output lowered", true);
-			Log.recoverable("Voltage", "The voltage dropped below 10V.");
+			if(startOfBrownOut == 0) {
+				Log.recoverable("Voltage", "The voltage dropped below 10V.");
+				startOfBrownOut = 1;
+			}
 		} else {
+			startOfBrownOut = 0;
 			robotDrive.setMaxOutput(1);
 			SmartDashboard.putBoolean("Output lowered", false);
 		}
@@ -153,5 +159,5 @@ public class DriveTrain extends Subsystem {
     
     public double getDTRRate(){
     	return DTREncoder.getRate();
-    }
+	}
 }
