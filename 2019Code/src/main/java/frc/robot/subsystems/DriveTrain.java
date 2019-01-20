@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Log;
 import frc.robot.Robot;
 import frc.robot.triggers.IsBrowningOut;
 import frc.robotMap.AutoMap;
@@ -107,6 +108,7 @@ public class DriveTrain extends Subsystem {
 		if(IsBrowningOut.get()) {
 			robotDrive.setMaxOutput(0.75);
 			SmartDashboard.putBoolean("Output lowered", true);
+			Log.recoverable("Voltage", "The voltage dropped below 10V.");
 		} else {
 			robotDrive.setMaxOutput(1);
 			SmartDashboard.putBoolean("Output lowered", false);
