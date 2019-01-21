@@ -13,11 +13,11 @@ import frc.robot.Robot;
 /**
  * Add your docs here.
  */
-public class ReleasePusher extends InstantCommand {
+public class PushForward extends InstantCommand {
   /**
    * Add your docs here.
    */
-  public ReleasePusher() {
+  public PushForward() {
     super();
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
@@ -26,7 +26,7 @@ public class ReleasePusher extends InstantCommand {
   // Called once when the command executes
   @Override
   protected void initialize() {
-    Robot.adaptor.climber.shiftFrontDown();
+    Robot.adaptor.climber.shiftBackDown();
   }
 
 }

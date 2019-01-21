@@ -39,6 +39,9 @@ public class OI {
 
 		getJoystickButton(1,3).whenPressed(new PushUp());
 		getJoystickButton(1,4).whenPressed(new ReleasePusher());
+		
+		getJoystickButton(1,5).whenPressed(new PushForward());
+		getJoystickButton(1,6).whenPressed(new ReleaseBack());
 	}
 	
 	public static OI getInstance(){

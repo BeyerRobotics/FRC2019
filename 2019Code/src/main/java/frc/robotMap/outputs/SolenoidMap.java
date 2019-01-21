@@ -12,10 +12,13 @@ package frc.robotMap.outputs;
  */
 public class SolenoidMap {
 
-    public static final int SHIFTER_A = 0;
-    public static final int SHIFTER_B = 2;
+    public static final int SHIFTER_A = 5;
+    public static final int SHIFTER_B = 6;
 
-    public static final int PUSHER_A = 3;
-    public static final int PUSHER_B = 4;
+    public static final int FPUSHER_A = 3;
+    public static final int FPUSHER_B = 4;
+
+    public static final int BPUSHER_A = 0;
+    public static final int BPUSHER_B = 2;
 
 }

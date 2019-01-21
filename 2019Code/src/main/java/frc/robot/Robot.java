@@ -34,6 +34,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void robotPeriodic() {
+		adaptor.comp.stop();
 		SmartDashboard.putNumber("Voltage", adaptor.pdp.getVoltage());
 	}
 

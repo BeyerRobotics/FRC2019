@@ -26,7 +26,7 @@ public class PushUp extends InstantCommand {
   // Called once when the command executes
   @Override
   protected void initialize() {
-    Robot.adaptor.climber.shiftUp();
+    Robot.adaptor.climber.shiftFrontUp();
   }
 
 }

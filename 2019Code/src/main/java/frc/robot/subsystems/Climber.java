@@ -18,10 +18,12 @@ public class Climber extends Subsystem {
   private static Climber climber;
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  private static DoubleSolenoid pusher;
+  private static DoubleSolenoid frontPusher;
+  private static DoubleSolenoid backPusher;
 
   private Climber() {
-    pusher = new DoubleSolenoid(SolenoidMap.PUSHER_A, SolenoidMap.PUSHER_B);
+    frontPusher = new DoubleSolenoid(SolenoidMap.FPUSHER_A, SolenoidMap.FPUSHER_B);
+    backPusher = new DoubleSolenoid(SolenoidMap.BPUSHER_A, SolenoidMap.BPUSHER_B);
   }
 
   public static Climber getInstance() {
@@ -29,12 +31,20 @@ public class Climber extends Subsystem {
     return climber;
   }
 
-  public void shiftUp() {
-    pusher.set(DoubleSolenoid.Value.kForward);
+  public void shiftFrontUp() {
+    frontPusher.set(DoubleSolenoid.Value.kForward);
   }
 
-  public void shiftDown() {
-    pusher.set(DoubleSolenoid.Value.kReverse);
+  public void shiftFrontDown() {
+    frontPusher.set(DoubleSolenoid.Value.kReverse);
+  }
+
+  public void shiftBackUp() {
+    backPusher.set(DoubleSolenoid.Value.kReverse);
+  }
+
+  public void shiftBackDown() {
+    backPusher.set(DoubleSolenoid.Value.kForward);
   }
 
   @Override
