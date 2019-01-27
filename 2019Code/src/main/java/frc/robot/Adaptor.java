@@ -9,7 +9,10 @@ package frc.robot;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import frc.robot.subsystems.*;
 import frc.robotMap.inputs.CoprocessorMap;
@@ -23,7 +26,9 @@ import frc.robotMap.inputs.CoprocessorMap;
  *
  */
 public class Adaptor {
-    private static Adaptor adaptor;
+	private static Adaptor adaptor;
+	
+	public DriverStation ds;
 	
 	public PowerDistributionPanel pdp;
 	
@@ -36,8 +41,12 @@ public class Adaptor {
 	public Shifters shifters;
 
 	public Serial serial;
+
+	public UsbCamera cam;
 	
 	private Adaptor(){
+		ds = DriverStation.getInstance();
+
 		pdp = new PowerDistributionPanel();
 		
 		comp = new Compressor();
@@ -49,6 +58,8 @@ public class Adaptor {
 		shifters = Shifters.getInstance();
 
 		serial = Serial.getInstance();
+
+		cam = CameraServer.getInstance().startAutomaticCapture();
 	}
 	
 	public static Adaptor getInstance(){
