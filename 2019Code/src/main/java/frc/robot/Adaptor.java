@@ -43,6 +43,8 @@ public class Adaptor {
 	public Serial serial;
 
 	public UsbCamera cam;
+
+	public Vision vision;
 	
 	private Adaptor(){
 		ds = DriverStation.getInstance();
@@ -60,6 +62,8 @@ public class Adaptor {
 		serial = Serial.getInstance();
 
 		cam = CameraServer.getInstance().startAutomaticCapture();
+
+		vision = Vision.getInstance();
 	}
 	
 	public static Adaptor getInstance(){

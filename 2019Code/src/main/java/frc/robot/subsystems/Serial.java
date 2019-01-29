@@ -16,7 +16,10 @@ import frc.robot.Robot;
 import frc.robot.triggers.IsBrowningOut;
 import frc.robotMap.inputs.CoprocessorMap;
 /**
- * Add your docs here.
+ * Subsystem to handle communications with an Arduino over serial.
+ * 
+ * @author Robert Smith
+ * @author Ben Fichtenkort
  */
 public class Serial extends Subsystem {
   private static Serial serial;
@@ -40,6 +43,13 @@ public class Serial extends Subsystem {
     return serial;
   }
 
+  /**
+   * Format information to be sent over serial.
+   * 
+   * @param variables Keys to label variables to be tracked.
+   * @param values Integer values assigned to given keys.
+   * @author Robert Smith
+   */
   public void write(String[] variables, Integer[] values) {
     StringBuilder sb = new StringBuilder();
     for(int i=0;i<variables.length;i++) {
@@ -48,6 +58,12 @@ public class Serial extends Subsystem {
     arduino.writeString(sb.toString());
   }
 
+  /**
+   * Update local instance of information from serial.  Only
+   * changes if something is new and it is sending something.
+   * 
+   * @return The unformatted string of information from serial.
+   */
   public String read() {
     String input = arduino.readString();
     String message = "";
@@ -57,6 +73,13 @@ public class Serial extends Subsystem {
     return message;
   }
 
+  /**
+   * Filter information from serial and add variables to
+   * a local hash map
+   * 
+   * @param read The input from the serial. Use read().
+   * @author Robert Smith
+   */
   public void filter(String read) {
     int startsAt=0,splitsAt=0,endsAt=0;
     String name="",value="";
@@ -75,6 +98,9 @@ public class Serial extends Subsystem {
     }
   }
 
+  /**
+   * Send values over serial that will be constantly updated.
+   */
   public void update() {
     if(IsBrowningOut.get()) varMap.put("b",1); //"b" stands for brownout, 1 is true
     else varMap.put("b",0);
@@ -90,6 +116,12 @@ public class Serial extends Subsystem {
     write(names, values);
   }
 
+  /**
+   * Getter for hash map of variables from serial.
+   * 
+   * @param key The string assigned to the value you want to get.
+   * @return The stored variable assigned to the given key.
+   */
   public int getData(String key) {
     if(varMap.get(key) == null) return varMap.get(key);
     else return 0;
@@ -101,6 +133,9 @@ public class Serial extends Subsystem {
     // setDefaultCommand(new MySpecialCommand());
   }
 
+  /**
+   * Convert string of numbers into an integer.
+   */
   static int stringToInt(String input){
 		try {
 			int i = Integer.parseInt(input);
@@ -111,6 +146,9 @@ public class Serial extends Subsystem {
 		return 0;
   }
   
+  /**
+   * Convert boolean to either a 0 or 1.
+   */
   static int boolToInt(boolean input) {
     if(input) return 1;
     else return 0;
