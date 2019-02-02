@@ -9,7 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.subsystems.Dispatcher;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -19,8 +19,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * project.
  */
 public class Robot extends TimedRobot {
-  public static OI oi;
+  	public static OI oi;
 	public static Adaptor adaptor;
+	public static Dispatcher dispatcher;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -30,11 +31,12 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		oi = OI.getInstance();
 		adaptor = Adaptor.getInstance();
+		dispatcher = Dispatcher.getInstance();
 	}
 
 	@Override
 	public void robotPeriodic() {
-		SmartDashboard.putNumber("Voltage", adaptor.pdp.getVoltage());
+		dispatcher.update();
 	}
 
 	/**

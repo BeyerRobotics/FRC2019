@@ -63,6 +63,8 @@ public class DriveTrain extends Subsystem {
 
     /**Initialize motors and drive encoders here*/
     public DriveTrain() {
+		Robot.dispatcher.addSendable("Drive Train", this);
+
     	//Initialize encoders
     	DTLEncoder = new Encoder(EncoderMap.DTL_A, EncoderMap.DTL_B, EncoderMap.DTL_INVERTED);
     	DTREncoder = new Encoder(EncoderMap.DTR_A, EncoderMap.DTR_B, EncoderMap.DTR_INVERTED);
@@ -112,7 +114,6 @@ public class DriveTrain extends Subsystem {
 			SmartDashboard.putBoolean("Output lowered", false);
 		}
 		robotDrive.arcadeDrive(-joystick.getY(), joystick.getX());
-		SmartDashboard.putNumber("Left output", leftMaster.getMotorOutputPercent());
     }
     
     public void tankDrive(Joystick leftJoystick, Joystick rightJoystick){
