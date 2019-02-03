@@ -63,7 +63,6 @@ public class DriveTrain extends Subsystem {
 
     /**Initialize motors and drive encoders here*/
     public DriveTrain() {
-		Robot.dispatcher.addSendable("Drive Train", this);
 
     	//Initialize encoders
     	DTLEncoder = new Encoder(EncoderMap.DTL_A, EncoderMap.DTL_B, EncoderMap.DTL_INVERTED);
@@ -96,7 +95,8 @@ public class DriveTrain extends Subsystem {
     }
     
     public static DriveTrain getInstance(){
-    	if(driveTrain == null) driveTrain = new DriveTrain();
+		if(driveTrain == null) driveTrain = new DriveTrain();
+		Robot.dispatcher.addSendable("Drive Train", driveTrain);
     	return driveTrain;
     }
 
