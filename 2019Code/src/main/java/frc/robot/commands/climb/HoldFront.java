@@ -5,20 +5,19 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.climb;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
-import frc.robot.RobotStates.DriveGear;
 
 /**
  * Add your docs here.
  */
-public class Shift extends InstantCommand {
+public class HoldFront extends InstantCommand {
   /**
    * Add your docs here.
    */
-  public Shift() {
+  public HoldFront() {
     super();
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
@@ -27,8 +26,7 @@ public class Shift extends InstantCommand {
   // Called once when the command executes
   @Override
   protected void initialize() {
-    if(Robot.adaptor.shifters.gear == DriveGear.LOW) Robot.adaptor.shifters.shiftHigh();
-    else if(Robot.adaptor.shifters.gear == DriveGear.HIGH) Robot.adaptor.shifters.shiftLow();
+    Robot.adaptor.climber.holdFront();
   }
 
 }

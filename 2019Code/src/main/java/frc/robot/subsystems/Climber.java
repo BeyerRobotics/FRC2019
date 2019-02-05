@@ -47,6 +47,14 @@ public class Climber extends Subsystem {
     backPusher.set(DoubleSolenoid.Value.kForward);
   }
 
+  public void holdFront() {
+    frontPusher.set(DoubleSolenoid.Value.kOff);
+  }
+
+  public void holdBack() {
+    backPusher.set(DoubleSolenoid.Value.kOff);
+  }
+
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.

@@ -5,28 +5,22 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
-
-import edu.wpi.first.wpilibj.command.InstantCommand;
-import frc.robot.Robot;
+package frc.robot;
 
 /**
  * Add your docs here.
  */
-public class ReleasePusher extends InstantCommand {
-  /**
-   * Add your docs here.
-   */
-  public ReleasePusher() {
-    super();
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-  }
+public class RobotStates {
 
-  // Called once when the command executes
-  @Override
-  protected void initialize() {
-    Robot.adaptor.climber.shiftFrontDown();
-  }
+    public static DriveGear driveGear;
+    public static ClimbLevel climbLevel;
+
+    public enum DriveGear {
+        HIGH, LOW
+    }
+
+    public enum ClimbLevel {
+        GROUND, FIRST, SECOND
+    }
 
 }

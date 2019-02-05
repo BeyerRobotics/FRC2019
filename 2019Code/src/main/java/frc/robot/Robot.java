@@ -19,8 +19,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * project.
  */
 public class Robot extends TimedRobot {
-  public static OI oi;
+  	public static OI oi;
 	public static Adaptor adaptor;
+	public static RobotStates robotStates;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -30,6 +31,7 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		oi = OI.getInstance();
 		adaptor = Adaptor.getInstance();
+		robotStates = new RobotStates();
 	}
 
 	@Override
