@@ -19,8 +19,7 @@ public class HoldBack extends InstantCommand {
    */
   public HoldBack() {
     super();
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+    requires(Robot.adaptor.climber);
   }
 
   // Called once when the command executes

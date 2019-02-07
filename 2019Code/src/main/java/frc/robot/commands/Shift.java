@@ -20,8 +20,7 @@ public class Shift extends InstantCommand {
    */
   public Shift() {
     super();
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+    requires(Robot.adaptor.shifters);
   }
 
   // Called once when the command executes

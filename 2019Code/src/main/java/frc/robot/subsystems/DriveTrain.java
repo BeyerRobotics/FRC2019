@@ -23,7 +23,7 @@ import frc.robotMap.inputs.EncoderMap;
 import frc.robotMap.outputs.MotorControllerMap;
 
 /**
- * Add your docs here.
+ * Subsystem to control all functions of drive train.
  */
 public class DriveTrain extends Subsystem {
   private static DriveTrain driveTrain;

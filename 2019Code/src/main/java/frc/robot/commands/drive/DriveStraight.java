@@ -16,8 +16,7 @@ public class DriveStraight extends Command {
   private double entranceAngle;
 
   public DriveStraight(Joystick joystick, double entranceAngle) {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+    requires(Robot.adaptor.driveTrain);
     this.joystick = joystick;
     this.entranceAngle = entranceAngle;
   }

@@ -22,8 +22,7 @@ public class PushForward extends Command {
    * @param toAngle Target angle to stop at during actuation
    */
   public PushForward(double toAngle) {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+    requires(Robot.adaptor.climber);
     angle = toAngle;
   }
 

@@ -15,7 +15,7 @@ public class ArcadeDrive extends Command {
   private Joystick joystick;
 
   public ArcadeDrive(Joystick joystick) {
-      //requires(Robot.adaptor.driveTrain);
+      requires(Robot.adaptor.driveTrain);
       this.joystick = joystick;
   }
 

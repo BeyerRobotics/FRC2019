@@ -9,19 +9,25 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.commands.climb.HoldFront;
 import frc.robotMap.outputs.SolenoidMap;
 
 /**
- * Add your docs here.
+ * Subsystem to control any action of the climbing mechanism.  Front
+ * pistons actuate on same solenoid, same for back.
  */
 public class Climber extends Subsystem {
   private static Climber climber;
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
+
   private static DoubleSolenoid frontPusher;
   private static DoubleSolenoid backPusher;
 
-  private Climber() {
+  @Override
+  public void initDefaultCommand() {
+    setDefaultCommand(new HoldFront());
+  }
+
+  public Climber() {
     frontPusher = new DoubleSolenoid(SolenoidMap.FPUSHER_A, SolenoidMap.FPUSHER_B);
     backPusher = new DoubleSolenoid(SolenoidMap.BPUSHER_A, SolenoidMap.BPUSHER_B);
   }
@@ -29,7 +35,7 @@ public class Climber extends Subsystem {
   public static Climber getInstance() {
     if(climber == null) climber = new Climber();
     return climber;
-  }
+   }
 
   public void shiftFrontUp() {
     frontPusher.set(DoubleSolenoid.Value.kForward);
@@ -53,11 +59,5 @@ public class Climber extends Subsystem {
 
   public void holdBack() {
     backPusher.set(DoubleSolenoid.Value.kOff);
-  }
-
-  @Override
-  public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
   }
 }

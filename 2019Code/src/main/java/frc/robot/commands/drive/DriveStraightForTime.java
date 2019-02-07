@@ -20,7 +20,7 @@ public class DriveStraightForTime extends TimedCommand {
 
   public DriveStraightForTime(double timeout, double speed, double entranceAngle) {
       super(timeout);
-      //requires(Robot.adaptor.driveTrain);
+      requires(Robot.adaptor.driveTrain);
       this.speed = speed;
       this.entranceAngle = entranceAngle;
   }

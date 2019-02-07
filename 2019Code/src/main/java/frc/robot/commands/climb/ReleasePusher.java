@@ -19,8 +19,7 @@ public class ReleasePusher extends InstantCommand {
    */
   public ReleasePusher() {
     super();
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+    requires(Robot.adaptor.climber);
   }
 
   // Called once when the command executes

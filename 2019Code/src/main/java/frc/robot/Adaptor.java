@@ -23,7 +23,7 @@ import frc.robotMap.inputs.CoprocessorMap;
  *
  */
 public class Adaptor {
-    private static Adaptor adaptor;
+    // private static Adaptor adaptor;
 	
 	public PowerDistributionPanel pdp;
 	
@@ -37,7 +37,7 @@ public class Adaptor {
 
 	public Climber climber;
 	
-	private Adaptor(){
+	public Adaptor(){
 		pdp = new PowerDistributionPanel();
 		
 		comp = new Compressor();
@@ -51,8 +51,8 @@ public class Adaptor {
 		climber = Climber.getInstance();
 	}
 	
-	public static Adaptor getInstance(){
-		if(adaptor == null)	adaptor = new Adaptor(); 
-		return adaptor;
-	}
+	// public static Adaptor getInstance(){
+	// 	if(adaptor == null)	adaptor = new Adaptor(); 
+	// 	return adaptor;
+	// }
 }

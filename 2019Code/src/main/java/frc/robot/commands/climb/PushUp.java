@@ -22,8 +22,7 @@ public class PushUp extends InstantCommand {
    * @param toAngle Target angle to stop at during actuation
    */
   public PushUp(double toAngle) {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+    requires(Robot.adaptor.climber);
     angle = toAngle;
   }
 

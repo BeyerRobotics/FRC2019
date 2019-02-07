@@ -13,7 +13,7 @@ import frc.robotMap.outputs.SolenoidMap;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 /**
- * Add your docs here.
+ * Subsystem to track drive gear and change it.
  */
 public class Shifters extends Subsystem {
   private static Shifters shifters;
@@ -21,10 +21,8 @@ public class Shifters extends Subsystem {
   private DoubleSolenoid pancakes;
 
   public DriveGear gear;
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
 
-  private Shifters() {
+  public Shifters() {
     pancakes = new DoubleSolenoid(SolenoidMap.SHIFTER_A, SolenoidMap.SHIFTER_B);
   }
 
@@ -45,7 +43,5 @@ public class Shifters extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
   }
 }
