@@ -5,13 +5,22 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robotMap.inputs;
+package frc.robot.commands;
+
+import edu.wpi.first.wpilibj.command.InstantCommand;
+import frc.robot.Robot;
 
 /**
- * Add your docs here.
+ * This class retracts the solenoid for shooter.
  */
-public class ShooterMap {
-    public static final int SHOOTER_PITCH_SOLENOID_DEPLOY = 0;
-    public static final int SHOOTER_PITCH_SOLENOID_RETRACT = 1;
-	public static final int OI_DRIVER_CONTROLLER = 0;
+public class Stow extends InstantCommand {
+  public Stow() {
+    super();
+    requires(Robot.adaptor.shooter);
+  }
+
+  @Override
+  protected void initialize() {
+    Robot.adaptor.shooter.retract();
+  }
 }

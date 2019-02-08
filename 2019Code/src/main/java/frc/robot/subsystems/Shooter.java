@@ -10,19 +10,19 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robotMap.inputs.ShooterMap;
+import frc.robotMap.outputs.SolenoidMap;
 
 /**
- * Add your docs here.
+ * This subsystem allows the Solenoids to deploy and retract in order to control the shooter. 
+ * @author Emilio Satavu
+ * @author Isabella Perez
  */
 public class Shooter extends Subsystem {
   private static Shooter shooter;
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
-  DoubleSolenoid pitchSolenoid = null;
+  DoubleSolenoid pitchSolenoid;
   
   public Shooter(){
-  pitchSolenoid = new DoubleSolenoid(ShooterMap.SHOOTER_PITCH_SOLENOID_DEPLOY, ShooterMap.SHOOTER_PITCH_SOLENOID_RETRACT);
+    pitchSolenoid = new DoubleSolenoid(SolenoidMap.SHOOTER_PITCH_SOLENOID_DEPLOY, SolenoidMap.SHOOTER_PITCH_SOLENOID_RETRACT);
   }
 
   public void pushOut(){
@@ -36,12 +36,11 @@ public class Shooter extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+
   }
 
-public static Shooter getInstance() {
-  if(shooter == null) shooter = new Shooter();
-  return shooter;
-}
+  public static Shooter getInstance() {
+    if(shooter == null) shooter = new Shooter();
+    return shooter;
+  }
 }

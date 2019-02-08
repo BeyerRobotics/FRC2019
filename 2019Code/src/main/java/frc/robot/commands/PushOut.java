@@ -11,22 +11,16 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
 /**
- * Add your docs here.
+ * This class pushes the solenoid out for shooter.
  */
 public class PushOut extends InstantCommand {
-  /**
-   * Add your docs here.
-   */
   public PushOut() {
     super();
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+    requires(Robot.adaptor.shooter);
   }
 
-  // Called once when the command executes
   @Override
   protected void initialize() {
       Robot.adaptor.shooter.pushOut();
   }
-
 }

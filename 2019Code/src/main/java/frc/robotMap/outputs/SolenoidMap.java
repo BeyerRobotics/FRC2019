@@ -15,4 +15,7 @@ public class SolenoidMap {
     public static final int SHIFTER_A = 0;
     public static final int SHIFTER_B = 2;
 
+	public static final int SHOOTER_PITCH_SOLENOID_DEPLOY = 0;
+	public static final int SHOOTER_PITCH_SOLENOID_RETRACT = 1;
+
 }

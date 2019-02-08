@@ -11,25 +11,11 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class Shoot extends CommandGroup {
   /**
-   * Add your docs here.
+   * This class allows the solenoids to shoot using the PushOut() method and then delays them
+   *  for one second before they stow.
    */
   public Shoot() {
-    // Add Commands here:
-    // e.g. addSequential(new Command1());
-    // addSequential(new Command2());
-    // these will run in order.
       addSequential(new PushOut(), 1);
-      addSequential(new Retract());
-    // To run multiple commands at the same time,
-    // use addParallel()
-    // e.g. addParallel(new Command1());
-    // addSequential(new Command2());
-    // Command1 and Command2 will run in parallel.
-
-    // A command group will require all of the subsystems that each member
-    // would require.
-    // e.g. if Command1 requires chassis, and Command2 requires arm,
-    // a CommandGroup containing them would require both the chassis and the
-    // arm.
+      addSequential(new Stow());
   }
 }
