@@ -16,19 +16,16 @@ import edu.wpi.first.wpilibj.DriverStation;
  * @author Robert Smith
  * @author Ben Calkins
  * @author Joshua Tapia
- *
  */
-
  public class Log {
-
-    static String csvFile = "/media/sda1/log.csv"; // Change to directory of USB plugged into RIO
-
-    static Date date;
-    static Timestamp ts;
-    static double remainingTime;
-    static double time;
-
 	private static Log log;
+
+    private static String csvFile = "/media/sda1/log.csv"; // Change to directory of USB plugged into RIO
+
+    private static Date date;
+    private static Timestamp ts;
+    private static double remainingTime;
+    private static double time;
 
 	private Log() {
 	}

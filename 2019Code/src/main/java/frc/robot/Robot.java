@@ -9,7 +9,6 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the.
@@ -19,8 +18,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * project.
  */
 public class Robot extends TimedRobot {
-  public static OI oi;
 	public static Adaptor adaptor;
+  	public static OI oi;
 	public static Log log;
 
 	/**
@@ -29,14 +28,13 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
-		oi = OI.getInstance();
 		adaptor = Adaptor.getInstance();
+		oi = OI.getInstance();
 		log = Log.getInstance();
 	}
 
 	@Override
 	public void robotPeriodic() {
-		SmartDashboard.putNumber("Voltage", adaptor.pdp.getVoltage());
 	}
 
 	/**
@@ -95,8 +93,4 @@ public class Robot extends TimedRobot {
 	@Override
 	public void testPeriodic() {
 	}
-
-  
-
-  
 }

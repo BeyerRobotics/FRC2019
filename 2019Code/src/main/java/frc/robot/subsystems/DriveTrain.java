@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Log;
 import frc.robot.Robot;
 import frc.robot.triggers.IsBrowningOut;
@@ -109,7 +108,6 @@ public class DriveTrain extends Subsystem {
     public void arcadeDrive(Joystick joystick){
 		if(IsBrowningOut.get()) {
 			robotDrive.setMaxOutput(0.75);
-			SmartDashboard.putBoolean("Output lowered", true);
 			if(startOfBrownOut == 0) {
 				Log.recoverable("Voltage", "The voltage dropped below 10V.");
 				startOfBrownOut = 1;
@@ -117,14 +115,22 @@ public class DriveTrain extends Subsystem {
 		} else {
 			startOfBrownOut = 0;
 			robotDrive.setMaxOutput(1);
-			SmartDashboard.putBoolean("Output lowered", false);
 		}
 		robotDrive.arcadeDrive(-joystick.getY(), joystick.getX());
-		SmartDashboard.putNumber("Left output", leftMaster.getMotorOutputPercent());
     }
     
     public void tankDrive(Joystick leftJoystick, Joystick rightJoystick){
-    	robotDrive.tankDrive(leftJoystick.getY(), rightJoystick.getY());
+		if(IsBrowningOut.get()) {
+			robotDrive.setMaxOutput(0.75);
+			if(startOfBrownOut == 0) {
+				Log.recoverable("Voltage", "The voltage dropped below 10V.");
+				startOfBrownOut = 1;
+			}
+		} else {
+			startOfBrownOut = 0;
+			robotDrive.setMaxOutput(1);
+		}
+		robotDrive.tankDrive(leftJoystick.getY(), rightJoystick.getY());
     }
     
     public void driveStraight(double speed){
