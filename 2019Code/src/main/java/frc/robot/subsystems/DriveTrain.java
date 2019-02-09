@@ -65,6 +65,7 @@ public class DriveTrain extends Subsystem {
 
     /**Initialize motors and drive encoders here*/
     public DriveTrain() {
+
     	//Initialize encoders
     	DTLEncoder = new Encoder(EncoderMap.DTL_A, EncoderMap.DTL_B, EncoderMap.DTL_INVERTED);
     	DTREncoder = new Encoder(EncoderMap.DTR_A, EncoderMap.DTR_B, EncoderMap.DTR_INVERTED);
@@ -96,7 +97,7 @@ public class DriveTrain extends Subsystem {
     }
     
     public static DriveTrain getInstance(){
-    	if(driveTrain == null) driveTrain = new DriveTrain();
+		if(driveTrain == null) driveTrain = new DriveTrain();
     	return driveTrain;
     }
 

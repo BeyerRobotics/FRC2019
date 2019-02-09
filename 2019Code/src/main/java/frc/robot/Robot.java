@@ -9,6 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import frc.robot.subsystems.Dispatcher;
 
 /**
  * The VM is configured to automatically run this class, and to call the.
@@ -20,6 +21,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 public class Robot extends TimedRobot {
 	public static Adaptor adaptor;
   	public static OI oi;
+	public static Dispatcher dispatcher;
 	public static Log log;
 
 	/**
@@ -30,11 +32,13 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		adaptor = Adaptor.getInstance();
 		oi = OI.getInstance();
+		dispatcher = Dispatcher.getInstance();
 		log = Log.getInstance();
 	}
 
 	@Override
 	public void robotPeriodic() {
+		dispatcher.update();
 	}
 
 	/**

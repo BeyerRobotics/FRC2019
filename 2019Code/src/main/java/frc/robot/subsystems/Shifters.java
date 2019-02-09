@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.Robot;
 import frc.robotMap.outputs.SolenoidMap;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
@@ -24,6 +25,8 @@ public class Shifters extends Subsystem {
   // here. Call these from Commands.
 
   private Shifters() {
+    Robot.dispatcher.addSendable("Shifters", this);
+
     pancakes = new DoubleSolenoid(SolenoidMap.SHIFTER_A, SolenoidMap.SHIFTER_B);
   }
 
@@ -35,11 +38,13 @@ public class Shifters extends Subsystem {
   public void shiftHigh() {
     pancakes.set(DoubleSolenoid.Value.kForward);
     state = true;
+    Robot.dispatcher.addBool("Gear", true);
   }
 
   public void shiftLow() {
     pancakes.set(DoubleSolenoid.Value.kReverse);
     state = false;
+    Robot.dispatcher.addBool("Gear", false);
   }
 
   @Override
