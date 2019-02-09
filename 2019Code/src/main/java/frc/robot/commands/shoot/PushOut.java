@@ -5,17 +5,22 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robotMap.outputs;
+package frc.robot.commands.shoot;
+
+import edu.wpi.first.wpilibj.command.InstantCommand;
+import frc.robot.Robot;
 
 /**
- * Add your docs here.
+ * This class pushes the solenoid out for shooter.
  */
-public class SolenoidMap {
+public class PushOut extends InstantCommand {
+  public PushOut() {
+    super();
+    requires(Robot.adaptor.shooter);
+  }
 
-    public static final int SHIFTER_A = 0;
-    public static final int SHIFTER_B = 2;
-
-	public static final int SHOOTER_PITCH_SOLENOID_DEPLOY = 3;
-	public static final int SHOOTER_PITCH_SOLENOID_RETRACT = 1;
-
+  @Override
+  protected void initialize() {
+      Robot.adaptor.shooter.pushOut();
+  }
 }

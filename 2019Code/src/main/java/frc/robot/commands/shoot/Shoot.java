@@ -5,17 +5,17 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robotMap.outputs;
+package frc.robot.commands.shoot;
 
-/**
- * Add your docs here.
- */
-public class SolenoidMap {
+import edu.wpi.first.wpilibj.command.CommandGroup;
 
-    public static final int SHIFTER_A = 0;
-    public static final int SHIFTER_B = 2;
-
-	public static final int SHOOTER_PITCH_SOLENOID_DEPLOY = 3;
-	public static final int SHOOTER_PITCH_SOLENOID_RETRACT = 1;
-
+public class Shoot extends CommandGroup {
+  /**
+   * This class allows the solenoids to shoot using the PushOut() method and then delays them
+   *  for one second before they stow.
+   */
+  public Shoot() {
+      addSequential(new PushOut(), 1);
+      addSequential(new Stow());
+  }
 }
