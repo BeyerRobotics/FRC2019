@@ -5,22 +5,17 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.shoot;
 
-import edu.wpi.first.wpilibj.command.InstantCommand;
-import frc.robot.Robot;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 
-/**
- * This class retracts the solenoid for shooter.
- */
-public class Stow extends InstantCommand {
-  public Stow() {
-    super();
-    requires(Robot.adaptor.shooter);
-  }
-
-  @Override
-  protected void initialize() {
-    Robot.adaptor.shooter.retract();
+public class Shoot extends CommandGroup {
+  /**
+   * This class allows the solenoids to shoot using the PushOut() method and then delays them
+   *  for one second before they stow.
+   */
+  public Shoot() {
+      addSequential(new PushOut(), 1);
+      addSequential(new Stow());
   }
 }

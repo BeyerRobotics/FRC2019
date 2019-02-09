@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.*;
 import frc.robot.commands.drive.*;
+import frc.robot.commands.shoot.Shoot;
 import frc.robotMap.inputs.JoystickMap;
 
 /**

@@ -5,22 +5,22 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.shoot;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
 /**
- * This class pushes the solenoid out for shooter.
+ * This class retracts the solenoid for shooter.
  */
-public class PushOut extends InstantCommand {
-  public PushOut() {
+public class Stow extends InstantCommand {
+  public Stow() {
     super();
     requires(Robot.adaptor.shooter);
   }
 
   @Override
   protected void initialize() {
-      Robot.adaptor.shooter.pushOut();
+    Robot.adaptor.shooter.retract();
   }
 }
