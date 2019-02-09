@@ -19,8 +19,8 @@ import frc.robot.subsystems.Dispatcher;
  * project.
  */
 public class Robot extends TimedRobot {
-  	public static OI oi;
 	public static Adaptor adaptor;
+  	public static OI oi;
 	public static Dispatcher dispatcher;
 
 	/**
@@ -29,8 +29,8 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
-		oi = OI.getInstance();
 		adaptor = Adaptor.getInstance();
+		oi = OI.getInstance();
 		dispatcher = Dispatcher.getInstance();
 	}
 

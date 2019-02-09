@@ -43,6 +43,7 @@ public class Adaptor {
 		navx = new AHRS(CoprocessorMap.NAVX_PORT);
 		
 		driveTrain = DriveTrain.getInstance();
+		Robot.dispatcher.addSendable("DriveTraing", driveTrain);
 
 		shifters = Shifters.getInstance();
 	}

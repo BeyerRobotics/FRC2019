@@ -96,7 +96,6 @@ public class DriveTrain extends Subsystem {
     
     public static DriveTrain getInstance(){
 		if(driveTrain == null) driveTrain = new DriveTrain();
-		Robot.dispatcher.addSendable("Drive Train", driveTrain);
     	return driveTrain;
     }
 
