@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Log;
 import frc.robot.Robot;
 import frc.robot.triggers.IsBrowningOut;
 import frc.robotMap.AutoMap;
@@ -60,6 +60,8 @@ public class DriveTrain extends Subsystem {
 	
 	private static Encoder DTLEncoder;
 	private static Encoder DTREncoder;
+	
+	private int startOfBrownOut = 0;
 
     /**Initialize motors and drive encoders here*/
     public DriveTrain() {
@@ -78,7 +80,7 @@ public class DriveTrain extends Subsystem {
     	rightMaster.setInverted(DTR_INVs[0]);
     	rightSlave = new WPI_TalonSRX(DTR_IDs[1]);
     	rightSlave.set(ControlMode.Follower, DTR_IDs[0]);
-    	rightSlave.setInverted(DTR_INVs[1]);
+		rightSlave.setInverted(DTR_INVs[1]);
     	
     	if(DTL_IDs.length == 3){
     		WPI_TalonSRX leftSlaveB = new WPI_TalonSRX(DTL_IDs[2]);
@@ -107,28 +109,35 @@ public class DriveTrain extends Subsystem {
     public void arcadeDrive(Joystick joystick){
 		if(IsBrowningOut.get()) {
 			robotDrive.setMaxOutput(0.75);
-			SmartDashboard.putBoolean("Output lowered", true);
+			if(startOfBrownOut == 0) {
+				Log.recoverable("Voltage", "The voltage dropped below 10V.");
+				startOfBrownOut = 1;
+			}
 		} else {
+			startOfBrownOut = 0;
 			robotDrive.setMaxOutput(1);
-			SmartDashboard.putBoolean("Output lowered", false);
 		}
 		robotDrive.arcadeDrive(-joystick.getY(), joystick.getX());
     }
     
-    public void tankDrive(Joystick leftJoystick, Joystick rightJoystick){
-    	robotDrive.tankDrive(leftJoystick.getY(), rightJoystick.getY());
+    public void tankDrive(double left, double right){
+		if(IsBrowningOut.get()) {
+			robotDrive.setMaxOutput(0.75);
+			if(startOfBrownOut == 0) {
+				Log.recoverable("Voltage", "The voltage dropped below 10V.");
+				startOfBrownOut = 1;
+			}
+		} else {
+			startOfBrownOut = 0;
+			robotDrive.setMaxOutput(1);
+		}
+		robotDrive.tankDrive(left, right);
     }
     
     public void driveStraight(double speed){
     	double angle = Robot.adaptor.navx.getAngle();
     	double curve = -angle * AutoMap.kP;
     	robotDrive.curvatureDrive(speed, curve, false);
-	}
-	
-	public void driveStraightToJoy(Joystick joystick) {
-		double angle = Robot.adaptor.navx.getAngle();
-    	double curve = -angle * AutoMap.kP;
-    	robotDrive.curvatureDrive(-joystick.getY(), curve, false);
 	}
     
     /*Begin Encoder methods*/
@@ -151,5 +160,5 @@ public class DriveTrain extends Subsystem {
     
     public double getDTRRate(){
     	return DTREncoder.getRate();
-    }
+	}
 }

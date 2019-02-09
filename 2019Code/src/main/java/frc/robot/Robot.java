@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.subsystems.Dispatcher;
 
 /**
- * The VM is configured to automatically run this class, and to call the
+ * The VM is configured to automatically run this class, and to call the.
  * functions corresponding to each mode, as described in the TimedRobot
  * documentation. If you change the name of this class or the package after
  * creating this project, you must also update the build.gradle file in the
@@ -22,6 +22,7 @@ public class Robot extends TimedRobot {
 	public static Adaptor adaptor;
   	public static OI oi;
 	public static Dispatcher dispatcher;
+	public static Log log;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -32,6 +33,7 @@ public class Robot extends TimedRobot {
 		adaptor = Adaptor.getInstance();
 		oi = OI.getInstance();
 		dispatcher = Dispatcher.getInstance();
+		log = Log.getInstance();
 	}
 
 	@Override
@@ -95,8 +97,4 @@ public class Robot extends TimedRobot {
 	@Override
 	public void testPeriodic() {
 	}
-
-  
-
-  
 }
