@@ -33,9 +33,9 @@ public class OI {
 	public OI(){
 		createButtons();
 		
-		getJoystickButton(1,1).whileHeld(new ArcadeDrive(getJoystick(1)));
+		getJoystickButton(1,1).whileHeld(new TankDrive(getJoystick(1).getX(), getJoystick(1).getY()));
 
-		getJoystickButton(1,2).whileHeld(new StraightShift(getJoystick(1)));
+		getJoystickButton(1,2).whileHeld(new StraightShift(getJoystick(1).getY()));
 	}
 	
 	public static OI getInstance(){

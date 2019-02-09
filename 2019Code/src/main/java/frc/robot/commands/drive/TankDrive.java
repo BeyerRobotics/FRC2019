@@ -10,27 +10,24 @@ package frc.robot.commands.drive;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class DriveStraight extends Command {
-  private double speed, entranceAngle;
+public class TankDrive extends Command {
+  private double left, right;
 
-  public DriveStraight(double speed, double entranceAngle) {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-    this.speed = speed;
-    this.entranceAngle = entranceAngle;
+  public TankDrive(double left, double right) {
+    requires(Robot.adaptor.driveTrain);
+    this.left = left;
+    this.right = right;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.adaptor.navx.zeroYaw();
-    Robot.adaptor.navx.setAngleAdjustment(-entranceAngle);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.adaptor.driveTrain.driveStraight(speed);
+    Robot.adaptor.driveTrain.tankDrive(left, right);
   }
 
   // Make this return true when this Command no longer needs to run execute()

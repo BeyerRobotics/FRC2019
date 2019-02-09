@@ -119,7 +119,7 @@ public class DriveTrain extends Subsystem {
 		robotDrive.arcadeDrive(-joystick.getY(), joystick.getX());
     }
     
-    public void tankDrive(Joystick leftJoystick, Joystick rightJoystick){
+    public void tankDrive(double left, double right){
 		if(IsBrowningOut.get()) {
 			robotDrive.setMaxOutput(0.75);
 			if(startOfBrownOut == 0) {
@@ -130,19 +130,13 @@ public class DriveTrain extends Subsystem {
 			startOfBrownOut = 0;
 			robotDrive.setMaxOutput(1);
 		}
-		robotDrive.tankDrive(leftJoystick.getY(), rightJoystick.getY());
+		robotDrive.tankDrive(left, right);
     }
     
     public void driveStraight(double speed){
     	double angle = Robot.adaptor.navx.getAngle();
     	double curve = -angle * AutoMap.kP;
     	robotDrive.curvatureDrive(speed, curve, false);
-	}
-	
-	public void driveStraightToJoy(Joystick joystick) {
-		double angle = Robot.adaptor.navx.getAngle();
-    	double curve = -angle * AutoMap.kP;
-    	robotDrive.curvatureDrive(-joystick.getY(), curve, false);
 	}
     
     /*Begin Encoder methods*/
