@@ -37,6 +37,8 @@ public class Adaptor {
 
 	public Shooter shooter;
 	public Climber climber;
+	public Arm arm;
+
 	
 	public Adaptor(){
 		pdp = new PowerDistributionPanel();
@@ -52,6 +54,7 @@ public class Adaptor {
 
 		shooter = Shooter.getInstance();
 		climber = Climber.getInstance();
+		arm = Arm.getInstance();
 	}
 	
 	public static Adaptor getInstance(){

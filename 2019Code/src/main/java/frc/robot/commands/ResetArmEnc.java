@@ -5,24 +5,27 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot;
+package frc.robot.commands;
+
+import edu.wpi.first.wpilibj.command.InstantCommand;
+import frc.robot.Robot;
 
 /**
  * Add your docs here.
  */
-public class RobotStates {
-    public static DriveGear driveGear;
-    public static ClimbLevel climbLevel;
-    public static ArmLevel armLevel;
+public class ResetArmEnc extends InstantCommand {
+  /**
+   * Add your docs here.
+   */
+  public ResetArmEnc() {
+    super();
+    requires(Robot.adaptor.arm);
+  }
 
-    public enum DriveGear {
-        HIGH, LOW
-    }
+  // Called once when the command executes
+  @Override
+  protected void initialize() {
+    Robot.adaptor.arm.resetEnc();
+  }
 
-    public enum ClimbLevel {
-        GROUND, FIRST, SECOND
-    }
-    public enum ArmLevel {
-        TOP, MIDDLE, BOTTOM, STOW
-    }
 }
