@@ -23,7 +23,7 @@ import frc.robotMap.inputs.CoprocessorMap;
  *
  */
 public class Adaptor {
-    private static Adaptor adaptor;
+	private static Adaptor adaptor;
 	
 	public PowerDistributionPanel pdp;
 	
@@ -36,8 +36,9 @@ public class Adaptor {
 	public Shifters shifters;
 
 	public Shooter shooter;
+	public Climber climber;
 	
-	private Adaptor(){
+	public Adaptor(){
 		pdp = new PowerDistributionPanel();
 		
 		comp = new Compressor();
@@ -50,6 +51,7 @@ public class Adaptor {
 		shifters = Shifters.getInstance();
 
 		shooter = Shooter.getInstance();
+		climber = Climber.getInstance();
 	}
 	
 	public static Adaptor getInstance(){

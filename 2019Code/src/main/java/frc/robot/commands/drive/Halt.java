@@ -7,41 +7,42 @@
 
 package frc.robot.commands.drive;
 
-import edu.wpi.first.wpilibj.command.TimedCommand;
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-/**
- * Add your docs here.
- */
-public class DriveStraightForTime extends TimedCommand {
-  
-  private double speed;
-  private double entranceAngle;
-
-  public DriveStraightForTime(double timeout, double speed, double entranceAngle) {
-      super(timeout);
-      requires(Robot.adaptor.driveTrain);
-      this.speed = speed;
-      this.entranceAngle = entranceAngle;
+public class Halt extends Command {
+  public Halt() {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+    requires(Robot.adaptor.driveTrain);
   }
 
   // Called just before this Command runs the first time
+  @Override
   protected void initialize() {
-    Robot.adaptor.navx.reset();
-      Robot.adaptor.navx.setAngleAdjustment(-entranceAngle);
+    
   }
 
   // Called repeatedly when this Command is scheduled to run
+  @Override
   protected void execute() {
-    Robot.adaptor.driveTrain.driveStraight(speed);
+    Robot.adaptor.driveTrain.halt();
   }
 
-  // Called once after timeout
+  // Make this return true when this Command no longer needs to run execute()
+  @Override
+  protected boolean isFinished() {
+    return false;
+  }
+
+  // Called once after isFinished returns true
+  @Override
   protected void end() {
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
+  @Override
   protected void interrupted() {
   }
 }

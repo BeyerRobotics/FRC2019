@@ -16,13 +16,14 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Log;
 import frc.robot.Robot;
+import frc.robot.commands.drive.Halt;
 import frc.robot.triggers.IsBrowningOut;
 import frc.robotMap.AutoMap;
 import frc.robotMap.inputs.EncoderMap;
 import frc.robotMap.outputs.MotorControllerMap;
 
 /**
- * Add your docs here.
+ * Subsystem to control all functions of drive train.
  */
 public class DriveTrain extends Subsystem {
   private static DriveTrain driveTrain;
@@ -102,7 +103,8 @@ public class DriveTrain extends Subsystem {
     }
 
     @Override
-    public void initDefaultCommand() {     
+    public void initDefaultCommand() {
+		setDefaultCommand(new Halt()); 
     }
     
     /*Begin Drive methods*/
@@ -138,6 +140,10 @@ public class DriveTrain extends Subsystem {
     	double angle = Robot.adaptor.navx.getAngle();
     	double curve = -angle * AutoMap.kP;
     	robotDrive.curvatureDrive(speed, curve, false);
+	}
+
+	public void halt() {
+		robotDrive.stopMotor();
 	}
     
     /*Begin Encoder methods*/

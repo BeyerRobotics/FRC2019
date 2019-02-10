@@ -23,6 +23,7 @@ public class Robot extends TimedRobot {
   	public static OI oi;
 	public static Dispatcher dispatcher;
 	public static Log log;
+	public static RobotStates robotStates;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -33,7 +34,8 @@ public class Robot extends TimedRobot {
 		adaptor = Adaptor.getInstance();
 		oi = OI.getInstance();
 		dispatcher = Dispatcher.getInstance();
-		log = Log.getInstance();
+		log = Log.getInstance();	
+		robotStates = new RobotStates();
 	}
 
 	@Override

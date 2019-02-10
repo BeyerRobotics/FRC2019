@@ -5,23 +5,22 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robotMap.outputs;
+package frc.robot;
 
 /**
  * Add your docs here.
  */
-public class SolenoidMap {
+public class RobotStates {
 
-    public static final int SHIFTER_A = 5;
-    public static final int SHIFTER_B = 6;
+    public static DriveGear driveGear;
+    public static ClimbLevel climbLevel;
 
-    public static final int FPUSHER_A = 3;
-    public static final int FPUSHER_B = 4;
+    public enum DriveGear {
+        HIGH, LOW
+    }
 
-    public static final int BPUSHER_A = 0;
-    public static final int BPUSHER_B = 2;
-
-	public static final int SHOOTER_PITCH_SOLENOID_DEPLOY = 7;
-	public static final int SHOOTER_PITCH_SOLENOID_RETRACT = 1;
+    public enum ClimbLevel {
+        GROUND, FIRST, SECOND
+    }
 
 }

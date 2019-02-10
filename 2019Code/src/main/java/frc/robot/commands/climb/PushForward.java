@@ -5,38 +5,44 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.drive;
+package frc.robot.commands.climb;
 
-import edu.wpi.first.wpilibj.command.TimedCommand;
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
  * Add your docs here.
  */
-public class DriveStraightForTime extends TimedCommand {
-  
-  private double speed;
-  private double entranceAngle;
+public class PushForward extends Command {
+  private boolean isFinished;
 
-  public DriveStraightForTime(double timeout, double speed, double entranceAngle) {
-      super(timeout);
-      requires(Robot.adaptor.driveTrain);
-      this.speed = speed;
-      this.entranceAngle = entranceAngle;
+  private double angle;
+  /**
+   * Actuates rear pistons, isFinished returns true when robot tilts to target angle
+   * @param toAngle Target angle to stop at during actuation
+   */
+  public PushForward(double toAngle) {
+    requires(Robot.adaptor.climber);
+    angle = toAngle;
   }
 
-  // Called just before this Command runs the first time
+  @Override
   protected void initialize() {
     Robot.adaptor.navx.reset();
-      Robot.adaptor.navx.setAngleAdjustment(-entranceAngle);
   }
 
-  // Called repeatedly when this Command is scheduled to run
+  @Override
   protected void execute() {
-    Robot.adaptor.driveTrain.driveStraight(speed);
+    if(Robot.adaptor.navx.getPitch() < angle) Robot.adaptor.climber.shiftBackUp();
+    else isFinished = true;
   }
 
-  // Called once after timeout
+  @Override
+  protected boolean isFinished() {
+    return isFinished;
+  }
+
+  // Called once after isFinished returns true
   protected void end() {
   }
 
@@ -44,4 +50,5 @@ public class DriveStraightForTime extends TimedCommand {
   // subsystems is scheduled to run
   protected void interrupted() {
   }
+
 }

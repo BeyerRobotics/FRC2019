@@ -9,8 +9,10 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.RobotStates.ClimbLevel;
 import frc.robot.commands.*;
 import frc.robot.commands.drive.*;
+import frc.robot.commands.climb.*;
 import frc.robot.commands.shoot.Shoot;
 import frc.robotMap.inputs.JoystickMap;
 
@@ -36,8 +38,13 @@ public class OI {
 		
 		getJoystickButton(1,1).whileHeld(new TankDrive(getJoystick(1).getX(), getJoystick(1).getY()));
 
-		getJoystickButton(1,3).whenPressed(new Shoot());
+		getJoystickButton(1,6).whenPressed(new Shoot());
+
 		getJoystickButton(1,2).whileHeld(new StraightShift(getJoystick(1).getY()));
+
+		getJoystickButton(1,3).whenPressed(new LevelUp(ClimbLevel.GROUND));
+		getJoystickButton(1,4).whenPressed(new ReleasePusher());
+		getJoystickButton(1,5).whenPressed(new ReleaseBack());
 	}
 	
 	public static OI getInstance(){
