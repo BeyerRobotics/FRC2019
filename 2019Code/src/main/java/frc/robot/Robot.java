@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.ResetArmEnc;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -28,13 +29,16 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
-		oi = OI.getInstance();
 		adaptor = Adaptor.getInstance();
+		oi = OI.getInstance();
+		SmartDashboard.putData(new ResetArmEnc());
 	}
 
 	@Override
 	public void robotPeriodic() {
 		SmartDashboard.putNumber("Voltage", adaptor.pdp.getVoltage());
+		adaptor.arm.PIDSmartDashboard();
+		SmartDashboard.putData("Arm", Robot.adaptor.arm);
 	}
 
 	/**
@@ -85,6 +89,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		SmartDashboard.putNumber("encoder", adaptor.arm.getArmCount());
+		SmartDashboard.putNumber("rate", adaptor.arm.getArmRate());
 	}
 
 	/**

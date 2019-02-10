@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robotMap.inputs.JoystickMap;
+import frc.robot.RobotStates.ArmLevel;
 import frc.robot.commands.*;
 import frc.robot.commands.drive.*;
 
@@ -36,6 +37,15 @@ public class OI {
 		getJoystickButton(1,1).whileHeld(new ArcadeDrive(getJoystick(1)));
 
 		getJoystickButton(1,2).whileHeld(new StraightShift(getJoystick(1)));
+
+		
+		getJoystickButton(0, 5).whenPressed(new SetArmPosition(ArmLevel.TOP));
+		getJoystickButton(0, 3).whenPressed(new SetArmPosition(ArmLevel.MIDDLE));
+		getJoystickButton(0, 6).whenPressed(new SetArmPosition(ArmLevel.BOTTOM));
+		getJoystickButton(0, 4).whenPressed(new SetArmPosition(ArmLevel.STOW));
+		
+
+		getJoystickButton(0, 1).whileHeld(new MoveArm(getJoystick(0)));
 	}
 	
 	public static OI getInstance(){

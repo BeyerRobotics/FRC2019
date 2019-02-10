@@ -34,6 +34,9 @@ public class Adaptor {
 	public DriveTrain driveTrain;
 
 	public Shifters shifters;
+
+	public Arm arm;
+
 	
 	private Adaptor(){
 		pdp = new PowerDistributionPanel();
@@ -45,6 +48,8 @@ public class Adaptor {
 		driveTrain = DriveTrain.getInstance();
 
 		shifters = Shifters.getInstance();
+
+		arm = Arm.getInstance();
 	}
 	
 	public static Adaptor getInstance(){

@@ -28,4 +28,7 @@ public class MotorControllerMap {
 	public static final boolean DTR_FRONT_INV = false;
 	public static final boolean DTR_MIDDLE_INV = true;
 	public static final boolean DTR_BACK_INV = false;
+
+	public static final int ARM_MOTOR = 6;
+	 
 }

@@ -13,23 +13,19 @@ import frc.robot.Robot;
 /**
  * Add your docs here.
  */
-public class Shift extends InstantCommand {
+public class ResetArmEnc extends InstantCommand {
   /**
    * Add your docs here.
    */
-  public Shift() {
+  public ResetArmEnc() {
     super();
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+    requires(Robot.adaptor.arm);
   }
 
   // Called once when the command executes
   @Override
   protected void initialize() {
-    if(Robot.adaptor.shifters.state == false) Robot.adaptor.shifters.shiftHigh();
-    else if(Robot.adaptor.shifters.state == true) Robot.adaptor.shifters.shiftLow();
-
-  
+    Robot.adaptor.arm.resetEnc();
   }
 
 }

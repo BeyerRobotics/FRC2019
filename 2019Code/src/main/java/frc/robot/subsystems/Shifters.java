@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.RobotStates.ArmLevel;
 import frc.robotMap.outputs.SolenoidMap;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
@@ -20,6 +21,8 @@ public class Shifters extends Subsystem {
   private DoubleSolenoid pancakes;
 
   public boolean state;
+
+  public ArmLevel position;
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
@@ -41,6 +44,7 @@ public class Shifters extends Subsystem {
     pancakes.set(DoubleSolenoid.Value.kReverse);
     state = false;
   }
+
 
   @Override
   public void initDefaultCommand() {
