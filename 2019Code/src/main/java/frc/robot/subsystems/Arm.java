@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotStates.ArmLevel;
 import frc.robot.commands.arm.SetArmPosition;
+import frc.robotMap.outputs.ArmMap;
 import frc.robotMap.outputs.MotorControllerMap;
 
 /**
@@ -30,17 +31,23 @@ public class Arm extends Subsystem{
   public Arm() {
     motor = new WPI_TalonSRX(MotorControllerMap.ARM_MOTOR);
     motor.setSelectedSensorPosition(0);
-    SmartDashboard.putNumber("P", 3.0);
+    SmartDashboard.putNumber("P", 1.0);
     SmartDashboard.putNumber("I",0.0);
     SmartDashboard.putNumber("D", 0.0);
   }
 
-  public void moveArm(double setpoint){
+  /**
+   * Using a PID controller, move the arm to a given setpoint
+   * @param level The level to move the arm to (TOP, MIDDLE, BOTTOM, STOW)
+   * @author Joshua Tapia
+   */
+  public void moveArm(ArmLevel level){
+    double setpoint = levelToSetpoint(level);
+
     if(setpoint != prevSet) this.integral = 0;
     double error = setpoint - motor.getSelectedSensorPosition()/11.37;
     SmartDashboard.putNumber("error", error);
     this.integral += ((error/360)*0.02);
-    SmartDashboard.putNumber("int", integral);
 
     if(prevError == Double.NaN) prevError = 0.0;
   
@@ -57,8 +64,29 @@ public class Arm extends Subsystem{
     } else {
       motor.set(0);
     }
+
     prevError = error;
     prevSet = setpoint;
+  }
+
+  /**
+   * Convert ArmLevel enumerator to an encoder value
+   * @param level Target ArmLevel from RobotStates
+   * @return The corresponding encoder value
+   */
+  private int levelToSetpoint(ArmLevel level) {
+    switch(level) {
+      case TOP:
+        return ArmMap.TOP_VAL;
+      case MIDDLE:
+        return ArmMap.MID_VAL;
+      case BOTTOM:
+        return ArmMap.BOTTOM_VAL;
+      case STOW:
+        return ArmMap.STOW_VAL;
+      default:
+        return ArmMap.STOW_VAL;
+    }
   }
 
   public void resetEnc() {
@@ -68,7 +96,6 @@ public class Arm extends Subsystem{
   public static Arm getInstance(){
     if (arm == null) arm = new Arm();
     return arm;
-
   }
 
   public void halt(){
@@ -77,9 +104,6 @@ public class Arm extends Subsystem{
 
   public void move(double speed){
       motor.set(speed);
-  }
-
-  public void PIDSmartDashboard(){
   }
 
   public double getArmCount(){

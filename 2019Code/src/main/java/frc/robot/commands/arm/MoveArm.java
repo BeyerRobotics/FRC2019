@@ -9,12 +9,10 @@ package frc.robot.commands.arm;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 public class MoveArm extends Command {
   private Joystick speed;
-  private double count;
 
   public MoveArm(Joystick speed) {
     requires(Robot.adaptor.arm);
@@ -30,8 +28,6 @@ public class MoveArm extends Command {
   @Override
   protected void execute() {
      Robot.adaptor.arm.move(-speed.getY());
-     count++;
-     SmartDashboard.putNumber("s", count);
   }
 
   // Make this return true when this Command no longer needs to run execute()

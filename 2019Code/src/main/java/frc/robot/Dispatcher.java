@@ -5,17 +5,17 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems;
+package frc.robot;
 
 import edu.wpi.first.wpilibj.Sendable;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
+import frc.robot.commands.arm.ResetArmEnc;
 
 /**
  * Subsystem to handle all outputs to SmartDashboard
  */
-public class Dispatcher extends Subsystem {
+public class Dispatcher {
   private static Dispatcher dispatcher;
 
   private Dispatcher() {
@@ -23,7 +23,10 @@ public class Dispatcher extends Subsystem {
 
   public void update() {
     addNum("Voltage", Robot.adaptor.pdp.getVoltage());
-    addSendable("DriveTrain", Robot.adaptor.driveTrain);
+    addSendable("DriveTrain", Robot.adaptor.driveTrain); //Will show command that is using the subsystem
+    addSendable("Arm", Robot.adaptor.arm);
+    addNum("Arm Encoder", Robot.adaptor.arm.getArmCount());
+    addSendable("Reset Arm Encoder", new ResetArmEnc());
   }
 
   public void addNum(String key, double val) {
@@ -45,11 +48,5 @@ public class Dispatcher extends Subsystem {
   public static Dispatcher getInstance() {
     if(dispatcher == null) dispatcher = new Dispatcher();
     return dispatcher;
-  }
-
-  @Override
-  public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
   }
 }

@@ -22,26 +22,12 @@ public class SetArmPosition extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    switch(level) {
-      case TOP:
-       Robot.adaptor.arm.moveArm(160);
-        break;
-      case MIDDLE:
-       Robot.adaptor.arm.moveArm(90);
-          break;
-      case BOTTOM:
-       Robot.adaptor.arm.moveArm(40);
-          break;
-      case STOW:
-       Robot.adaptor.arm.moveArm(0);
-          break;
-     }
+    Robot.adaptor.arm.moveArm(level);
   }
 
   // Make this return true when this Command no longer needs to run execute()
