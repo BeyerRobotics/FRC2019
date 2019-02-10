@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.shift;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.commands.drive.*;

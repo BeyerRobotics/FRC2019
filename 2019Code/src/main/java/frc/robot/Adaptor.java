@@ -36,9 +36,10 @@ public class Adaptor {
 	public Shifters shifters;
 
 	public Shooter shooter;
-	public Climber climber;
-	public Arm arm;
 
+	public Climber climber;
+
+	public Arm arm;
 	
 	public Adaptor(){
 		pdp = new PowerDistributionPanel();
@@ -48,12 +49,13 @@ public class Adaptor {
 		navx = new AHRS(CoprocessorMap.NAVX_PORT);
 		
 		driveTrain = DriveTrain.getInstance();
-		Robot.dispatcher.addSendable("DriveTraing", driveTrain);
 
 		shifters = Shifters.getInstance();
 
 		shooter = Shooter.getInstance();
+
 		climber = Climber.getInstance();
+		
 		arm = Arm.getInstance();
 	}
 	

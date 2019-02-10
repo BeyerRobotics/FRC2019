@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.commands.shoot.Stow;
 import frc.robotMap.outputs.SolenoidMap;
 
 /**
@@ -27,7 +28,6 @@ public class Shooter extends Subsystem {
 
   public void pushOut(){
     pitchSolenoid.set(Value.kForward);
-
   }
 
   public void retract(){
@@ -36,7 +36,7 @@ public class Shooter extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-
+    setDefaultCommand(new Stow());
   }
 
   public static Shooter getInstance() {

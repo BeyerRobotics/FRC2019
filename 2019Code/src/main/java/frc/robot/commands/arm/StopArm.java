@@ -5,43 +5,28 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.arm;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.RobotStates.ArmLevel;
 
-public class SetArmPosition extends Command {
-  private ArmLevel level;
+public class StopArm extends Command {
 
-  public SetArmPosition(ArmLevel level) {
-    this.level = level;
+  public StopArm() {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
     requires(Robot.adaptor.arm);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    switch(level) {
-      case TOP:
-       Robot.adaptor.arm.moveArm(160);
-        break;
-      case MIDDLE:
-       Robot.adaptor.arm.moveArm(90);
-          break;
-      case BOTTOM:
-       Robot.adaptor.arm.moveArm(40);
-          break;
-      case STOW:
-       Robot.adaptor.arm.moveArm(0);
-          break;
-     }
+    Robot.adaptor.arm.halt();
   }
 
   // Make this return true when this Command no longer needs to run execute()

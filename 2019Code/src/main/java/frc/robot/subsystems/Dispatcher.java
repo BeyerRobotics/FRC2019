@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 /**
- * Add your docs here.
+ * Subsystem to handle all outputs to SmartDashboard
  */
 public class Dispatcher extends Subsystem {
   private static Dispatcher dispatcher;
@@ -22,7 +22,8 @@ public class Dispatcher extends Subsystem {
   }
 
   public void update() {
-    Robot.adaptor.pdp.getVoltage();
+    addNum("Voltage", Robot.adaptor.pdp.getVoltage());
+    addSendable("DriveTrain", Robot.adaptor.driveTrain);
   }
 
   public void addNum(String key, double val) {

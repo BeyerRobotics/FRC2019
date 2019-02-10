@@ -29,7 +29,7 @@ public class DriveTrain extends Subsystem {
   private static DriveTrain driveTrain;
 	
 	/**Put all ports for drive train motors here, front, back, middle for each side.
-	 * The first port given will act as a 'master' to the remaining motors
+	 * The first port given will act as a 'master' to the remaining motors.
 	 * To configure for 4 motor drive, simply exclude a 'middle' port. */
 	private static int[] DTL_IDs = { //Drive Train Left
 			MotorControllerMap.DTL_FRONT,

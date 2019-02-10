@@ -12,9 +12,10 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.RobotStates.ClimbLevel;
 import frc.robotMap.inputs.JoystickMap;
 import frc.robot.RobotStates.ArmLevel;
-import frc.robot.commands.*;
 import frc.robot.commands.drive.*;
 import frc.robot.commands.climb.*;
+import frc.robot.commands.arm.*;
+import frc.robot.commands.shift.*;
 import frc.robot.commands.shoot.Shoot;
 
 /**
@@ -44,7 +45,7 @@ public class OI {
 		getJoystickButton(1,2).whileHeld(new StraightShift(getJoystick(1).getY()));
 
 		getJoystickButton(1,3).whenPressed(new LevelUp(ClimbLevel.GROUND));
-		getJoystickButton(1,4).whenPressed(new ReleasePusher());
+		getJoystickButton(1,4).whenPressed(new ReleaseFront());
 		getJoystickButton(1,5).whenPressed(new ReleaseBack());
 
 		getJoystickButton(0, 5).whenPressed(new SetArmPosition(ArmLevel.TOP));

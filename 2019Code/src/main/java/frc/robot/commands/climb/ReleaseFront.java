@@ -13,11 +13,11 @@ import frc.robot.Robot;
 /**
  * Add your docs here.
  */
-public class ReleasePusher extends InstantCommand {
+public class ReleaseFront extends InstantCommand {
   /**
    * Add your docs here.
    */
-  public ReleasePusher() {
+  public ReleaseFront() {
     super();
     requires(Robot.adaptor.climber);
   }

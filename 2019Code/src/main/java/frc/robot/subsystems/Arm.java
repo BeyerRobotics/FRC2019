@@ -12,14 +12,12 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotStates.ArmLevel;
-import frc.robot.commands.SetArmPosition;
+import frc.robot.commands.arm.SetArmPosition;
 import frc.robotMap.outputs.MotorControllerMap;
 
-//import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 /**
- * Add your docs here.
+ * Subsystem to control the robot's arm
  */
-
 public class Arm extends Subsystem{
   private static Arm arm;
   public ArmLevel position;
@@ -58,7 +56,6 @@ public class Arm extends Subsystem{
       motor.set(out);
     } else {
       motor.set(0);
-      //this.integral = 0;
     }
     prevError = error;
     prevSet = setpoint;

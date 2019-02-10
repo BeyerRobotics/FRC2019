@@ -13,7 +13,7 @@ import frc.robot.RobotStates.ClimbLevel;;
 public class LevelUp extends CommandGroup {
   /**
    * Command to bring robot to the altitude needed for climb
-   * @param level The level (in inches) of the climb
+   * @param level The level of the climb
    */
   public LevelUp(ClimbLevel level) {
     switch (level) {
@@ -22,18 +22,21 @@ public class LevelUp extends CommandGroup {
         addSequential(new HoldFront()); //runs when PushUp() is done
         addSequential(new PushForward(0));
         addSequential(new HoldBack());
+        addSequential(new ReleaseFront());
         break;
       case FIRST:
-        addSequential(new PushUp(40));
+        addSequential(new PushUp(40)); //calibrate these angles
         addSequential(new HoldFront());
         addSequential(new PushForward(0));
         addSequential(new HoldBack());
+        addSequential(new ReleaseFront());
         break;
       case SECOND:
         addSequential(new PushUp(50));
         addSequential(new HoldFront());
         addSequential(new PushForward(0));
         addSequential(new HoldBack());
+        addSequential(new ReleaseFront());
         break;
       default:
         break;

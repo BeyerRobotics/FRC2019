@@ -9,7 +9,6 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotStates.DriveGear;
-import frc.robot.RobotStates.ArmLevel;
 import frc.robotMap.outputs.SolenoidMap;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
@@ -22,11 +21,6 @@ public class Shifters extends Subsystem {
   private DoubleSolenoid pancakes;
 
   public DriveGear gear;
-  public boolean state;
-
-  public ArmLevel position;
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
 
   public Shifters() {
     pancakes = new DoubleSolenoid(SolenoidMap.SHIFTER_A, SolenoidMap.SHIFTER_B);
@@ -46,7 +40,6 @@ public class Shifters extends Subsystem {
     pancakes.set(DoubleSolenoid.Value.kReverse);
     gear = DriveGear.LOW;
   }
-
 
   @Override
   public void initDefaultCommand() {
