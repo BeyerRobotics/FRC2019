@@ -131,9 +131,9 @@ public class DriveTrain extends Subsystem {
     	robotDrive.curvatureDrive(-joystick.getY(), curve, false);
 	}
 
-	public void turn(double speed, double error) {
+	public void turn(double error) {
 		double curve = error * AutoMap.kP;
-		robotDrive.curvatureDrive(speed, curve, true);
+		robotDrive.tankDrive(curve, -curve);
 	}
     
     /*Begin Encoder methods*/

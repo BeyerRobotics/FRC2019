@@ -13,9 +13,9 @@ import frc.robot.Robot;
 public class TurnToCenter extends Command {
   private static int setpoint = 0;
   private int error = 100;
+  
   public TurnToCenter() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+    requires(Robot.adaptor.driveTrain);
   }
 
   // Called just before this Command runs the first time
@@ -27,8 +27,8 @@ public class TurnToCenter extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    error = setpoint - Robot.adaptor.vision.getTarget();
-    Robot.adaptor.driveTrain.turn(0.75, error);
+    error = (setpoint - Robot.adaptor.vision.getTarget()) / setpoint;
+    Robot.adaptor.driveTrain.turn(error);
   }
 
   // Make this return true when this Command no longer needs to run execute()
