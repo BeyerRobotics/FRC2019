@@ -12,6 +12,7 @@ import java.util.HashMap;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.triggers.IsBrowningOut;
 import frc.robotMap.inputs.CoprocessorMap;
@@ -23,8 +24,8 @@ import frc.robotMap.inputs.CoprocessorMap;
  */
 public class Serial extends Subsystem {
   private static Serial serial;
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
+
+  private boolean initialized = false;
 
   private static final Character startChar = '|';
   private static final Character valueChar = ':';
@@ -35,7 +36,14 @@ public class Serial extends Subsystem {
   private static SerialPort arduino;
 
   public Serial() {
-    arduino = new SerialPort(9600, CoprocessorMap.SERIAL_PORT);
+    try {
+      arduino = new SerialPort(9600, CoprocessorMap.SERIAL_PORT);
+      System.out.println("Successfully initalized arduino");
+      initialized = true;
+    } catch (Exception e) {
+      System.out.println("Failed to initalize arduino");
+      initialized = false;
+    }
   }
 
   public static Serial getInstance() {
@@ -51,26 +59,35 @@ public class Serial extends Subsystem {
    * @author Robert Smith
    */
   public void write(String[] variables, Integer[] values) {
-    StringBuilder sb = new StringBuilder();
-    for(int i=0;i<variables.length;i++) {
-      sb.append(startChar + variables[i] + valueChar + values[i] + endChar); 
+    if(initialized) {
+      StringBuilder sb = new StringBuilder();
+      for(int i=0;i<variables.length;i++) {
+        sb.append(startChar + variables[i] + valueChar + values[i] + endChar); 
+      }
+      arduino.writeString(sb.toString());
     }
-    arduino.writeString(sb.toString());
   }
 
   /**
    * Update local instance of information from serial.  Only
-   * changes if something is new and it is sending something.
+   * changes if something is new and the arduino is sending something.
    * 
    * @return The unformatted string of information from serial.
    */
   public String read() {
-    String input = arduino.readString();
-    String message = "";
-    if(!input.equals("")) {
-      message = input;
-    }
-    return message;
+    if(initialized) {
+      String input = arduino.readString();
+      String message = "";
+      int startsAt=0,endsAt=0;
+
+      if(!input.equals("")) {
+        startsAt = input.indexOf(startChar, endsAt);
+        endsAt = input.indexOf(endChar, endsAt);
+
+        if(endsAt>startsAt && startsAt>-1 && endsAt>-1) message = input.substring(startsAt, endsAt+1);
+      }
+      return message;
+    } else return "";
   }
 
   /**
@@ -81,20 +98,23 @@ public class Serial extends Subsystem {
    * @author Robert Smith
    */
   public void filter(String read) {
-    int startsAt=0,splitsAt=0,endsAt=0;
-    String name="",value="";
+    if(initialized) {
+      int startsAt=0,splitsAt=0,endsAt=0;
+      String name="",value="";
 
-    while(read.length() > 0) {
-      startsAt = read.indexOf(startChar, endsAt);
-      splitsAt = read.indexOf(valueChar, endsAt);
-      endsAt = read.indexOf(endChar, endsAt);
+      while(read.length() > 0) {
+        startsAt = read.indexOf(startChar, endsAt);
+        splitsAt = read.indexOf(valueChar, endsAt);
+        endsAt = read.indexOf(endChar, endsAt);
 
-      name = read.substring(startsAt+1, splitsAt);
-      value = read.substring(splitsAt+1, endsAt);
+        name = read.substring(startsAt+1, splitsAt);
+        value = read.substring(splitsAt+1, endsAt);
 
-      read = read.substring(endsAt+1);
+        read = read.substring(endsAt+1);
 
-      varMap.put(name,stringToInt(value));
+        varMap.put(name,stringToInt(value));
+        SmartDashboard.putString(name, value);
+      }
     }
   }
 
@@ -123,7 +143,7 @@ public class Serial extends Subsystem {
    * @return The stored variable assigned to the given key.
    */
   public int getData(String key) {
-    if(varMap.get(key) == null) return varMap.get(key);
+    if(varMap.get(key) != null) return varMap.get(key);
     else return 0;
   }
 

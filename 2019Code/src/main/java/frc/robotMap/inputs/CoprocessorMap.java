@@ -16,5 +16,5 @@ import edu.wpi.first.wpilibj.SerialPort;
 public class CoprocessorMap {
     public static final SPI.Port NAVX_PORT = SPI.Port.kMXP;
 
-    public static final SerialPort.Port SERIAL_PORT = SerialPort.Port.kMXP;
+    public static final SerialPort.Port SERIAL_PORT = SerialPort.Port.kUSB1;
 }
