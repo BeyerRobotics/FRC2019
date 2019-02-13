@@ -9,10 +9,12 @@ package frc.robot;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import frc.robot.subsystems.*;
 import frc.robotMap.inputs.CoprocessorMap;
+import frc.robotMap.inputs.PressureTansducerMap;
 
 /**
  * Declare and initialize all systems here, and call all systems from here. The
@@ -40,6 +42,8 @@ public class Adaptor {
 	public Climber climber;
 
 	public Arm arm;
+
+	public AnalogInput pressureTransducer;
 	
 	public Adaptor(){
 		pdp = new PowerDistributionPanel();
@@ -57,6 +61,8 @@ public class Adaptor {
 		climber = Climber.getInstance();
 		
 		arm = Arm.getInstance();
+
+		pressureTransducer = new AnalogInput(PressureTansducerMap.PRESSURE_TRANSDUCER);
 	}
 	
 	public static Adaptor getInstance(){

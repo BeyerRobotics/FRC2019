@@ -27,6 +27,7 @@ public class Dispatcher {
     addSendable("Arm", Robot.adaptor.arm);
     addNum("Arm Encoder", Robot.adaptor.arm.getArmCount());
     addSendable("Reset Arm Encoder", new ResetArmEnc());
+    addNum("Pressure Transducer", Robot.adaptor.pressureTransducer.getVoltage());
   }
 
   public void addNum(String key, double val) {

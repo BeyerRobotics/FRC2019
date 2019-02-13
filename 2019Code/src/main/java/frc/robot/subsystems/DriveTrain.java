@@ -7,10 +7,9 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
-import edu.wpi.first.wpilibj.Encoder;
+import com.revrobotics.CANEncoder;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -19,12 +18,12 @@ import frc.robot.Robot;
 import frc.robot.commands.drive.Halt;
 import frc.robot.triggers.IsBrowningOut;
 import frc.robotMap.AutoMap;
-import frc.robotMap.inputs.EncoderMap;
 import frc.robotMap.outputs.MotorControllerMap;
 
 /**
  * Subsystem to control all functions of drive train.
  */
+
 public class DriveTrain extends Subsystem {
   private static DriveTrain driveTrain;
 	
@@ -52,47 +51,44 @@ public class DriveTrain extends Subsystem {
 			MotorControllerMap.DTR_BACK_INV,
 			MotorControllerMap.DTR_MIDDLE_INV
 	};
+
+
+	private CANSparkMax leftMaster, leftSlave;
 	
-	private WPI_TalonSRX leftMaster, leftSlave;
-	
-	private WPI_TalonSRX rightMaster, rightSlave;
+	private CANSparkMax rightMaster, rightSlave;
 
 	private DifferentialDrive robotDrive;
-	
-	private static Encoder DTLEncoder;
-	private static Encoder DTREncoder;
+
+	private CANEncoder leftEnc;
+	private CANEncoder rightEnc;
 	
 	private int startOfBrownOut = 0;
 
     /**Initialize motors and drive encoders here*/
     public DriveTrain() {
-
-    	//Initialize encoders
-    	DTLEncoder = new Encoder(EncoderMap.DTL_A, EncoderMap.DTL_B, EncoderMap.DTL_INVERTED);
-    	DTREncoder = new Encoder(EncoderMap.DTR_A, EncoderMap.DTR_B, EncoderMap.DTR_INVERTED);
     	
-    	leftMaster = new WPI_TalonSRX(DTL_IDs[0]);
+    	leftMaster = new CANSparkMax(DTL_IDs[0],  CANSparkMaxLowLevel.MotorType.kBrushless);
     	leftMaster.setInverted(DTL_INVs[0]);
-    	leftSlave = new WPI_TalonSRX(DTL_IDs[1]);
-    	leftSlave.set(ControlMode.Follower, DTL_IDs[0]);
-    	leftSlave.setInverted(DTL_INVs[1]);
+    	leftSlave = new CANSparkMax(DTL_IDs[1], CANSparkMaxLowLevel.MotorType.kBrushless);
+    	leftSlave.follow(leftMaster, DTL_INVs[1]);
     	
-    	rightMaster = new WPI_TalonSRX(DTR_IDs[0]);
+    	rightMaster = new CANSparkMax(DTR_IDs[0], CANSparkMaxLowLevel.MotorType.kBrushless);
     	rightMaster.setInverted(DTR_INVs[0]);
-    	rightSlave = new WPI_TalonSRX(DTR_IDs[1]);
-    	rightSlave.set(ControlMode.Follower, DTR_IDs[0]);
-		rightSlave.setInverted(DTR_INVs[1]);
+    	rightSlave = new CANSparkMax(DTR_IDs[1], CANSparkMaxLowLevel.MotorType.kBrushless);
+		rightSlave.follow(rightMaster, DTR_INVs[1]);
     	
     	if(DTL_IDs.length == 3){
-    		WPI_TalonSRX leftSlaveB = new WPI_TalonSRX(DTL_IDs[2]);
-    		leftSlaveB.setInverted(DTL_INVs[2]);
-    		leftSlaveB.set(ControlMode.Follower, DTL_IDs[0]);
+    		CANSparkMax leftSlaveB = new CANSparkMax(DTL_IDs[2], CANSparkMaxLowLevel.MotorType.kBrushless);
+			leftSlaveB.follow(leftMaster, DTL_INVs[2]);
+			
     	}
     	if(DTR_IDs.length == 3){
-    		WPI_TalonSRX rightSlaveB = new WPI_TalonSRX(DTR_IDs[2]);
-    		rightSlaveB.setInverted(DTR_INVs[2]);
-    		rightSlaveB.set(ControlMode.Follower, DTR_IDs[0]);
-    	}
+    		CANSparkMax rightSlaveB = new CANSparkMax(DTR_IDs[2], CANSparkMaxLowLevel.MotorType.kBrushless);
+			rightSlaveB.follow(rightMaster, DTR_INVs[2]);
+		}
+		
+		leftEnc = leftMaster.getEncoder();
+		rightEnc = rightMaster.getEncoder();
     	
     	robotDrive = new DifferentialDrive(leftMaster, rightMaster);
     }
@@ -147,9 +143,8 @@ public class DriveTrain extends Subsystem {
 	}
     
     /*Begin Encoder methods*/
-    public void reset(){
-    	DTLEncoder.reset();
-    	DTREncoder.reset();
+    /*public void reset(){
+		leftEnc.
     }
     
     public double getDTLCount(){
@@ -166,5 +161,5 @@ public class DriveTrain extends Subsystem {
     
     public double getDTRRate(){
     	return DTREncoder.getRate();
-	}
+	}*/
 }
