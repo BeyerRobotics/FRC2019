@@ -53,42 +53,38 @@ public class DriveTrain extends Subsystem {
 	};
 
 
-	private CANSparkMax leftMaster, leftSlave;
+	private CANSparkMax leftMaster, leftSlave, leftSlaveB;
+	private CANEncoder leftEncoder;
 	
-	private CANSparkMax rightMaster, rightSlave;
+	private CANSparkMax rightMaster, rightSlave, rightSlaveB;
+	private CANEncoder rightEncoder;
 
 	private DifferentialDrive robotDrive;
-
-	private CANEncoder leftEnc;
-	private CANEncoder rightEnc;
 	
 	private int startOfBrownOut = 0;
 
     /**Initialize motors and drive encoders here*/
-    public DriveTrain() {
-    	
+    public DriveTrain() {	
     	leftMaster = new CANSparkMax(DTL_IDs[0],  CANSparkMaxLowLevel.MotorType.kBrushless);
     	leftMaster.setInverted(DTL_INVs[0]);
     	leftSlave = new CANSparkMax(DTL_IDs[1], CANSparkMaxLowLevel.MotorType.kBrushless);
-    	leftSlave.follow(leftMaster, DTL_INVs[1]);
+		leftSlave.follow(leftMaster, DTL_INVs[1]);
+		leftEncoder = leftMaster.getEncoder();
     	
     	rightMaster = new CANSparkMax(DTR_IDs[0], CANSparkMaxLowLevel.MotorType.kBrushless);
     	rightMaster.setInverted(DTR_INVs[0]);
     	rightSlave = new CANSparkMax(DTR_IDs[1], CANSparkMaxLowLevel.MotorType.kBrushless);
 		rightSlave.follow(rightMaster, DTR_INVs[1]);
+		rightEncoder = rightMaster.getEncoder();
     	
     	if(DTL_IDs.length == 3){
-    		CANSparkMax leftSlaveB = new CANSparkMax(DTL_IDs[2], CANSparkMaxLowLevel.MotorType.kBrushless);
-			leftSlaveB.follow(leftMaster, DTL_INVs[2]);
-			
-    	}
+    		leftSlaveB = new CANSparkMax(DTL_IDs[2], CANSparkMaxLowLevel.MotorType.kBrushless);
+			leftSlaveB.follow(leftMaster, DTL_INVs[2]);	
+    	} else leftSlaveB.close();
     	if(DTR_IDs.length == 3){
-    		CANSparkMax rightSlaveB = new CANSparkMax(DTR_IDs[2], CANSparkMaxLowLevel.MotorType.kBrushless);
+    		rightSlaveB = new CANSparkMax(DTR_IDs[2], CANSparkMaxLowLevel.MotorType.kBrushless);
 			rightSlaveB.follow(rightMaster, DTR_INVs[2]);
-		}
-		
-		leftEnc = leftMaster.getEncoder();
-		rightEnc = rightMaster.getEncoder();
+		} else rightSlaveB.close();
     	
     	robotDrive = new DifferentialDrive(leftMaster, rightMaster);
     }
@@ -143,23 +139,23 @@ public class DriveTrain extends Subsystem {
 	}
     
     /*Begin Encoder methods*/
-    /*public void reset(){
-		leftEnc.
-    }
+    // public void reset(){
+	// 	leftEnc.                         //Reset method has not been added
+    // }
     
     public double getDTLCount(){
-    	return DTLEncoder.getDistance();
+    	return leftEncoder.getPosition();
     }
     
     public double getDTRCount(){
-    	return DTREncoder.getDistance();
+    	return rightEncoder.getPosition();
     }
     
     public double getDTLRate(){
-    	return DTLEncoder.getRate();
+    	return rightEncoder.getVelocity();
     }
     
     public double getDTRRate(){
-    	return DTREncoder.getRate();
-	}*/
+    	return rightEncoder.getVelocity();
+	}
 }
