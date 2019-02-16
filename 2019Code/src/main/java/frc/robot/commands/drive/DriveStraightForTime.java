@@ -28,7 +28,7 @@ public class DriveStraightForTime extends TimedCommand {
   // Called just before this Command runs the first time
   protected void initialize() {
     Robot.adaptor.navx.reset();
-      Robot.adaptor.navx.setAngleAdjustment(-entranceAngle);
+    Robot.adaptor.navx.setAngleAdjustment(-entranceAngle);
   }
 
   // Called repeatedly when this Command is scheduled to run

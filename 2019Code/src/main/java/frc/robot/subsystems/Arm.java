@@ -12,7 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotStates.ArmLevel;
-import frc.robot.commands.arm.SetArmPosition;
+import frc.robot.commands.arm.StopArm;
 import frc.robotMap.outputs.ArmMap;
 import frc.robotMap.outputs.MotorControllerMap;
 
@@ -21,16 +21,17 @@ import frc.robotMap.outputs.MotorControllerMap;
  */
 public class Arm extends Subsystem{
   private static Arm arm;
+
   public ArmLevel position;
   private WPI_TalonSRX motor;
-  double prevError = Double.NaN;
-  double prevSetPoint = Double.NaN;
-  double integral;
-  double prevSet = 0;
+
+  private double prevError = Double.NaN;
+  private double integral;
+  private double prevSet = Double.NaN;
   
   public Arm() {
     motor = new WPI_TalonSRX(MotorControllerMap.ARM_MOTOR);
-    motor.setSelectedSensorPosition(0);
+    // motor.setSelectedSensorPosition(0);
     SmartDashboard.putNumber("P", 1.0);
     SmartDashboard.putNumber("I",0.0);
     SmartDashboard.putNumber("D", 0.0);
@@ -42,7 +43,7 @@ public class Arm extends Subsystem{
    * @author Joshua Tapia
    */
   public void moveArm(ArmLevel level){
-    double setpoint = levelToSetpoint(level);
+    double setpoint = levelToSetpoint(level); // Convert to an encoder setpoint
 
     if(setpoint != prevSet) this.integral = 0;
     double error = setpoint - motor.getSelectedSensorPosition()/11.37;
@@ -116,6 +117,6 @@ public class Arm extends Subsystem{
 
   @Override
   protected void initDefaultCommand() {
-    setDefaultCommand(new SetArmPosition(ArmLevel.STOW));
+    setDefaultCommand(new StopArm());
   }
 }

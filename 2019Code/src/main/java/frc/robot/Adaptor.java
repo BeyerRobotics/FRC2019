@@ -62,7 +62,7 @@ public class Adaptor {
 		
 		arm = Arm.getInstance();
 
-		pressureTransducer = new AnalogInput(PressureTansducerMap.PRESSURE_TRANSDUCER);
+		pressureTransducer = new AnalogInput(PressureTansducerMap.PRESSURE_TRANSDUCER_PORT);
 	}
 	
 	public static Adaptor getInstance(){

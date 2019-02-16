@@ -11,5 +11,5 @@ package frc.robotMap.inputs;
  * Add your docs here.
  */
 public class PressureTansducerMap {
-    public static final int PRESSURE_TRANSDUCER = 0;
+    public static final int PRESSURE_TRANSDUCER_PORT = 0;
 }
