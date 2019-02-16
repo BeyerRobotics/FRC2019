@@ -11,7 +11,7 @@ package frc.robotMap.inputs;
  * Add your docs here.
  */
 public class JoystickMap {
-    public static final int DRIVER_LEFT = 1;
-	public static final int DRIVER_RIGHT = 2;
-	public static final int GUNNER = 0;
+    public static final int GUNNER_STICK = 1;
+	public static final int DRIVER = 2;
+	public static final int GUNNER_BUTTON = 0;
 }

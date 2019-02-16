@@ -28,33 +28,43 @@ public class OI {
 	private static final int JOYSTICK_NUM = 3;
 	private static final int BUTTON_NUM = 12;
 
-	private static Joystick driverLeft = new Joystick(JoystickMap.DRIVER_LEFT);
-	private static Joystick driverRight = new Joystick(JoystickMap.DRIVER_RIGHT);
-	private static Joystick gunner = new Joystick(JoystickMap.GUNNER);
+	private static Joystick gunnerStick = new Joystick(JoystickMap.GUNNER_STICK);
+	private static Joystick driver = new Joystick(JoystickMap.DRIVER);
+	private static Joystick gunnerButton = new Joystick(JoystickMap.GUNNER_BUTTON);
 
-	private static Joystick[] joysticks = { gunner, driverLeft, driverRight };
+	private static Joystick[] joysticks = { gunnerButton, gunnerStick, driver };
 	private static JoystickButton[][] buttons = new JoystickButton[JOYSTICK_NUM][BUTTON_NUM];
 
 	public OI(){
 		createButtons();
 		
-		getJoystickButton(1,1).whileHeld(new TankDrive(getJoystick(1).getX(), getJoystick(1).getY()));
+		/* BEN */
+		//Gripper
+		getJoystickButton(1, 2).whenPressed(new Shoot());
 
-		getJoystickButton(1,6).whenPressed(new Shoot());
+		//Climb commands
+		getJoystickButton(1, 8).whenPressed(new LevelUp(ClimbLevel.GROUND));
+		getJoystickButton(1, 10).whenPressed(new LevelUp(ClimbLevel.FIRST));
+		getJoystickButton(1, 12).whenPressed(new LevelUp(ClimbLevel.SECOND));
+		getJoystickButton(1, 4).whenPressed(new ReleaseFront());
+		getJoystickButton(1, 5).whenPressed(new ReleaseBack());
 
-		getJoystickButton(1,2).whileHeld(new StraightShift(getJoystick(1).getY()));
+		//Arm PID commands
+		getJoystickButton(1, 1).whileHeld(new MoveArm(getJoystick(0)));
+		getJoystickButton(1, 11).whenPressed(new SetArmPosition(ArmLevel.TOP));
+		getJoystickButton(1, 9).whenPressed(new SetArmPosition(ArmLevel.MIDDLE));
+		getJoystickButton(1, 7).whenPressed(new SetArmPosition(ArmLevel.BOTTOM));
 
-		getJoystickButton(1,3).whenPressed(new LevelUp(ClimbLevel.GROUND));
-		getJoystickButton(1,4).whenPressed(new ReleaseFront());
-		getJoystickButton(1,5).whenPressed(new ReleaseBack());
-
-		getJoystickButton(0, 5).whenPressed(new SetArmPosition(ArmLevel.TOP));
-		getJoystickButton(0, 3).whenPressed(new SetArmPosition(ArmLevel.MIDDLE));
-		getJoystickButton(0, 6).whenPressed(new SetArmPosition(ArmLevel.BOTTOM));
-		getJoystickButton(0, 4).whenPressed(new SetArmPosition(ArmLevel.STOW));
+		//Backup Arm PID commands
+		getJoystickButton(0, 3).whenPressed(new SetArmPosition(ArmLevel.TOP));
+		getJoystickButton(0, 2).whenPressed(new SetArmPosition(ArmLevel.MIDDLE));
+		getJoystickButton(0, 1).whenPressed(new SetArmPosition(ArmLevel.BOTTOM));
+		getJoystickButton(0, 5).whenPressed(new SetArmPosition(ArmLevel.STOW));
 		
-
-		getJoystickButton(0, 1).whileHeld(new MoveArm(getJoystick(0)));
+		/* DAVID */
+		getJoystickButton(2, 6).whileHeld(new TankDrive(getJoystick(2).getX(), getJoystick(2).getZ()));
+		getJoystickButton(2, 2).whileHeld(new SlowTankDrive(getJoystick(2).getX(), getJoystick(2).getZ()));
+		getJoystickButton(2, 1).whileHeld(new StraightShift(getJoystick(2).getY()));
 	}
 
 	public static OI getInstance() {

@@ -134,8 +134,8 @@ public class DriveTrain extends Subsystem {
 			robotDrive.setMaxOutput(1);
 		}
 		robotDrive.tankDrive(left, right);
-    }
-    
+	}
+	
     public void driveStraight(double speed){
     	double angle = Robot.adaptor.navx.getAngle();
     	double curve = -angle * AutoMap.kP;
