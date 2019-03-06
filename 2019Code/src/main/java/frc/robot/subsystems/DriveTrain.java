@@ -7,8 +7,8 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
@@ -53,9 +53,9 @@ public class DriveTrain extends Subsystem {
 			MotorControllerMap.DTR_MIDDLE_INV
 	};
 	
-	private WPI_TalonSRX leftMaster, leftSlave;
+	private CANSparkMax leftMaster, leftSlave, leftSlaveB;
 	
-	private WPI_TalonSRX rightMaster, rightSlave;
+	private CANSparkMax rightMaster, rightSlave, rightSlaveB;
 
 	private DifferentialDrive robotDrive;
 	
@@ -71,29 +71,25 @@ public class DriveTrain extends Subsystem {
     	DTLEncoder = new Encoder(EncoderMap.DTL_A, EncoderMap.DTL_B, EncoderMap.DTL_INVERTED);
     	DTREncoder = new Encoder(EncoderMap.DTR_A, EncoderMap.DTR_B, EncoderMap.DTR_INVERTED);
     	
-    	leftMaster = new WPI_TalonSRX(DTL_IDs[0]);
+    	leftMaster = new CANSparkMax(DTL_IDs[0], MotorType.kBrushless);
     	leftMaster.setInverted(DTL_INVs[0]);
-    	leftSlave = new WPI_TalonSRX(DTL_IDs[1]);
-    	leftSlave.set(ControlMode.Follower, DTL_IDs[0]);
-    	leftSlave.setInverted(DTL_INVs[1]);
+    	leftSlave = new CANSparkMax(DTL_IDs[1], MotorType.kBrushless);
+    	leftSlave.follow(leftMaster, DTL_INVs[1]);
     	
-    	rightMaster = new WPI_TalonSRX(DTR_IDs[0]);
+    	rightMaster = new CANSparkMax(DTR_IDs[0], MotorType.kBrushless);
     	rightMaster.setInverted(DTR_INVs[0]);
-    	rightSlave = new WPI_TalonSRX(DTR_IDs[1]);
-    	rightSlave.set(ControlMode.Follower, DTR_IDs[0]);
-		rightSlave.setInverted(DTR_INVs[1]);
+    	rightSlave = new CANSparkMax(DTR_IDs[1], MotorType.kBrushless);
+    	rightSlave.follow(rightMaster, DTR_INVs[1]);
     	
     	if(DTL_IDs.length == 3){
-    		WPI_TalonSRX leftSlaveB = new WPI_TalonSRX(DTL_IDs[2]);
-    		leftSlaveB.setInverted(DTL_INVs[2]);
-    		leftSlaveB.set(ControlMode.Follower, DTL_IDs[0]);
-    	}
+    		leftSlaveB = new CANSparkMax(DTL_IDs[2], MotorType.kBrushless);
+    		leftSlaveB.follow(leftMaster, DTL_INVs[2]);
+    	} else leftSlaveB.close();
     	if(DTR_IDs.length == 3){
-    		WPI_TalonSRX rightSlaveB = new WPI_TalonSRX(DTR_IDs[2]);
-    		rightSlaveB.setInverted(DTR_INVs[2]);
-    		rightSlaveB.set(ControlMode.Follower, DTR_IDs[0]);
-    	}
-    	
+    		rightSlaveB = new CANSparkMax(DTR_IDs[2], MotorType.kBrushless);
+    		rightSlaveB.follow(rightMaster, DTR_INVs[2]);
+		} else rightSlaveB.close();
+
     	robotDrive = new DifferentialDrive(leftMaster, rightMaster);
     }
     

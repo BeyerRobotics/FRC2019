@@ -10,6 +10,11 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.RobotStates.ClimberState;
+import frc.robot.commands.ZeroYaw;
+import frc.robot.commands.arm.ResetArmEnc;
+import frc.robot.commands.climb.SetBackState;
+import frc.robot.commands.climb.SetFrontState;
 
 /**
  * The VM is configured to automatically run this class, and to call the.
@@ -36,11 +41,34 @@ public class Robot extends TimedRobot {
 		log = Log.getInstance();	
 		robotStates = new RobotStates();
 		dispatcher = Dispatcher.getInstance();
+
+		Scheduler.getInstance().add(new SetBackState(ClimberState.IN));
+		Scheduler.getInstance().add(new SetFrontState(ClimberState.IN));
 	}
 
 	@Override
 	public void robotPeriodic() {
-		dispatcher.update();
+		SmartDashboard.putNumber("Pressure", adaptor.pressureTransducer.getVoltage()*(165/5));
+
+		SmartDashboard.putString("Gear", "" + adaptor.shifters.gear);
+
+		SmartDashboard.putString("Front Climber", ""+ adaptor.climber.frontState);
+		SmartDashboard.putString("Back Climber", ""+ adaptor.climber.backState);
+
+		SmartDashboard.putNumber("Voltage", Robot.adaptor.pdp.getVoltage());
+    	SmartDashboard.putData("DriveTrain", Robot.adaptor.driveTrain); //Will show command that is using the subsystem
+
+    	SmartDashboard.putData("Arm", Robot.adaptor.arm);
+		SmartDashboard.putNumber("Arm Encoder", Robot.adaptor.arm.getArmDegrees());
+		SmartDashboard.putNumber("Raw Arm", Robot.adaptor.arm.getRaw());
+    	SmartDashboard.putData("Reset Arm Encoder", new ResetArmEnc());
+
+    	SmartDashboard.putNumber("Yaw", Robot.adaptor.navx.getYaw());
+    	SmartDashboard.putData("Reset Yaw", new ZeroYaw());
+    	SmartDashboard.putNumber("Roll", Robot.adaptor.navx.getRoll());
+
+		SmartDashboard.putData("Shifters", Robot.adaptor.shifters);
+		// dispatcher.update();
 	}
 
 	/**
@@ -83,6 +111,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
+		// Scheduler.getInstance().removeAll();
 	}
 
 	/**
@@ -91,8 +120,9 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		SmartDashboard.putNumber("encoder", adaptor.arm.getArmCount());
-		SmartDashboard.putNumber("rate", adaptor.arm.getArmRate());
+		// dispatcher.update();
+		// SmartDashboard.putNumber("encoder", adaptor.arm.getArmCount());
+		// SmartDashboard.putNumber("rate", adaptor.arm.getArmRate());
 	}
 
 	/**

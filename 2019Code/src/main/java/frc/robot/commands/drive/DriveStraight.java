@@ -7,15 +7,17 @@
 
 package frc.robot.commands.drive;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 public class DriveStraight extends Command {
-  private double speed, entranceAngle;
+  private double entranceAngle;
+  private Joystick joy;
 
-  public DriveStraight(double speed, double entranceAngle) {
+  public DriveStraight(Joystick joy, double entranceAngle) {
     requires(Robot.adaptor.driveTrain);
-    this.speed = speed;
+    this.joy = joy;
     this.entranceAngle = entranceAngle;
   }
 
@@ -29,7 +31,7 @@ public class DriveStraight extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.adaptor.driveTrain.driveStraight(speed);
+    Robot.adaptor.driveTrain.driveStraight((joy.getX() + joy.getZ())/2);
   }
 
   // Make this return true when this Command no longer needs to run execute()

@@ -14,8 +14,6 @@ import frc.robot.Robot;
  * Add your docs here.
  */
 public class PushForward extends Command {
-  private boolean isFinished;
-
   private double angle;
   /**
    * Actuates rear pistons, isFinished returns true when robot tilts to target angle
@@ -33,13 +31,12 @@ public class PushForward extends Command {
 
   @Override
   protected void execute() {
-    if(Robot.adaptor.navx.getPitch() < angle) Robot.adaptor.climber.shiftBackUp();
-    else isFinished = true;
+    Robot.adaptor.climber.shiftBackDown();
   }
 
   @Override
   protected boolean isFinished() {
-    return isFinished;
+    return Robot.adaptor.navx.getRoll() < angle;
   }
 
   // Called once after isFinished returns true

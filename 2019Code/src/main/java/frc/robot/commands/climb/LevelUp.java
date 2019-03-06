@@ -9,7 +9,8 @@ package frc.robot.commands.climb;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.RobotStates.ClimbLevel;
-import frc.robotMap.outputs.ClimbMap;;
+import frc.robot.RobotStates.ClimberState;
+import frc.robotMap.outputs.ClimbMap;
 
 public class LevelUp extends CommandGroup {
   /**
@@ -21,24 +22,21 @@ public class LevelUp extends CommandGroup {
     switch (level) {
       case GROUND:
         addSequential(new PushUp(ClimbMap.LOW_CLIMB)); //isFinished returns true when pitch exceeds given angle
-        addSequential(new HoldFront()); //runs when PushUp() is done
-        addSequential(new PushForward(0));
-        addSequential(new HoldBack());
-        addSequential(new ReleaseFront());
+        addSequential(new SetFrontState(ClimberState.HOLD)); //runs when PushUp() is done
+        addSequential(new PushForward(-3));
+        addSequential(new SetBackState(ClimberState.HOLD));
         break;
       case FIRST:
         addSequential(new PushUp(ClimbMap.MID_CLIMB)); //calibrate these angles
-        addSequential(new HoldFront());
-        addSequential(new PushForward(0));
-        addSequential(new HoldBack());
-        addSequential(new ReleaseFront());
+        addSequential(new SetFrontState(ClimberState.HOLD)); //runs when PushUp() is done
+        addSequential(new PushForward(-3));
+        addSequential(new SetBackState(ClimberState.HOLD));
         break;
       case SECOND:
         addSequential(new PushUp(ClimbMap.HIGH_CLIMB));
-        addSequential(new HoldFront());
-        addSequential(new PushForward(0));
-        addSequential(new HoldBack());
-        addSequential(new ReleaseFront());
+        addSequential(new SetFrontState(ClimberState.HOLD)); //runs when PushUp() is done
+        addSequential(new PushForward(-3));
+        addSequential(new SetBackState(ClimberState.HOLD));
         break;
       default:
         break;

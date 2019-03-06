@@ -12,7 +12,7 @@ package frc.robotMap.outputs;
  */
 public class ArmMap {
     public static final int STOW_VAL = 0;
-    public static final int BOTTOM_VAL = 40;
-    public static final int MID_VAL = 90;
-    public static final int TOP_VAL = 160;
+    public static final int BOTTOM_VAL = 25;
+    public static final int MID_VAL = 80;
+    public static final int TOP_VAL = 133;  //118
 }

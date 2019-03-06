@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
+import frc.robot.commands.ZeroYaw;
 import frc.robot.commands.arm.ResetArmEnc;
 
 /**
@@ -22,11 +23,18 @@ public class Dispatcher {
   }
 
   public void update() {
-    addNum("Voltage", Robot.adaptor.pdp.getVoltage());
+    // addNum("Voltage", Robot.adaptor.pdp.getVoltage());
     addSendable("DriveTrain", Robot.adaptor.driveTrain); //Will show command that is using the subsystem
+
     addSendable("Arm", Robot.adaptor.arm);
-    addNum("Arm Encoder", Robot.adaptor.arm.getArmCount());
+    // addNum("Arm Encoder", Robot.adaptor.arm.getArmCount());
     addSendable("Reset Arm Encoder", new ResetArmEnc());
+
+    // addNum("Yaw", Robot.adaptor.navx.getYaw());
+    addSendable("Reset Yaw", new ZeroYaw());
+    // addNum("Pitch", Robot.adaptor.navx.getPitch());
+
+    addSendable("Shifters", Robot.adaptor.shifters);
   }
 
   public void addNum(String key, double val) {

@@ -9,23 +9,39 @@ package frc.robot.commands.climb;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
+import frc.robot.RobotStates.ClimberState;
 
 /**
  * Add your docs here.
  */
-public class ReleaseBack extends InstantCommand {
+public class SetBackState extends InstantCommand {
+  private ClimberState state;
   /**
    * Add your docs here.
    */
-  public ReleaseBack() {
+  public SetBackState(ClimberState state) {
     super();
     requires(Robot.adaptor.climber);
+    this.state = state;
   }
 
   // Called once when the command executes
   @Override
   protected void initialize() {
-    Robot.adaptor.climber.shiftBackUp();
+    switch (state) {
+      case HOLD:
+        Robot.adaptor.climber.holdBack();
+        break;
+      case IN:
+        Robot.adaptor.climber.shiftBackUp();
+        break;
+      case OUT:
+        Robot.adaptor.climber.shiftBackDown();
+        break;
+      default:
+        Robot.adaptor.climber.shiftBackUp();
+        break;
+    }
   }
 
 }
