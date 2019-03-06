@@ -13,6 +13,7 @@ import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import frc.robot.subsystems.*;
 import frc.robotMap.inputs.CoprocessorMap;
@@ -29,6 +30,8 @@ import frc.robotMap.inputs.PressureTansducerMap;
 public class Adaptor {
 	private static Adaptor adaptor;
 	
+	public DriverStation ds;
+
 	public PowerDistributionPanel pdp;
 	
 	public Compressor comp;
@@ -49,7 +52,13 @@ public class Adaptor {
 
 	public Arm arm;
 	
-	public Adaptor(){
+	public Serial serial;
+
+	public Vision vision;
+	
+	private Adaptor(){
+		ds = DriverStation.getInstance();
+
 		pdp = new PowerDistributionPanel();
 		
 		comp = new Compressor();
@@ -72,6 +81,10 @@ public class Adaptor {
 		arm = Arm.getInstance();
 
 		pressureTransducer = new AnalogInput(PressureTansducerMap.PRESSURE_TRANSDUCER_PORT);
+
+		serial = Serial.getInstance();
+
+		vision = Vision.getInstance();
 	}
 	
 	public static Adaptor getInstance(){

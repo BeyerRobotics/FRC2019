@@ -137,6 +137,11 @@ public class DriveTrain extends Subsystem {
 	public void halt() {
 		robotDrive.stopMotor();
 	}
+
+	public void turn(double error) {
+		double curve = error * AutoMap.kP;
+		robotDrive.tankDrive(curve, -curve);
+	}
     
     /*Begin Encoder methods*/
     // public void reset(){

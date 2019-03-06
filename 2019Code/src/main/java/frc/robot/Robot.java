@@ -68,7 +68,9 @@ public class Robot extends TimedRobot {
     	SmartDashboard.putNumber("Roll", Robot.adaptor.navx.getRoll());
 
 		SmartDashboard.putData("Shifters", Robot.adaptor.shifters);
-		// dispatcher.update();
+		
+		adaptor.serial.filter(adaptor.serial.read());
+		SmartDashboard.putNumber("center", adaptor.serial.getData("center"));
 	}
 
 	/**
@@ -78,7 +80,6 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void disabledInit() {
-
 	}
 
 	@Override
