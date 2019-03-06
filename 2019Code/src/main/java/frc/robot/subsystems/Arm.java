@@ -22,12 +22,13 @@ import frc.robotMap.outputs.MotorControllerMap;
  */
 public class Arm extends Subsystem{
   private static Arm arm;
+
   public ArmLevel position;
   private WPI_TalonSRX motor;
-  double prevError = Double.NaN;
-  double prevSetPoint = Double.NaN;
-  double integral;
-  double prevSet = 0;
+
+  private double prevError = Double.NaN;
+  private double integral;
+  private double prevSet = Double.NaN;
   
   public Arm() {
     motor = new WPI_TalonSRX(MotorControllerMap.ARM_MOTOR);
@@ -44,7 +45,7 @@ public class Arm extends Subsystem{
    * @author Joshua Tapia
    */
   public void moveArm(ArmLevel level){
-    double setpoint = levelToSetpoint(level);
+    double setpoint = levelToSetpoint(level); // Convert to an encoder setpoint
 
     if(setpoint != prevSet) this.integral = 0;
     double error = setpoint - motor.getSelectedSensorPosition()/-11.37;

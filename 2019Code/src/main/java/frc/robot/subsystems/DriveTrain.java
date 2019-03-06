@@ -7,10 +7,9 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
-import edu.wpi.first.wpilibj.Encoder;
+import com.revrobotics.CANSparkMaxLowLevel;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -19,12 +18,12 @@ import frc.robot.Robot;
 import frc.robot.commands.drive.Halt;
 import frc.robot.triggers.IsBrowningOut;
 import frc.robotMap.AutoMap;
-import frc.robotMap.inputs.EncoderMap;
 import frc.robotMap.outputs.MotorControllerMap;
 
 /**
  * Subsystem to control all functions of drive train.
  */
+
 public class DriveTrain extends Subsystem {
   private static DriveTrain driveTrain;
 	
@@ -52,44 +51,41 @@ public class DriveTrain extends Subsystem {
 			MotorControllerMap.DTR_BACK_INV,
 			MotorControllerMap.DTR_MIDDLE_INV
 	};
-	
+
+
 	private CANSparkMax leftMaster, leftSlave, leftSlaveB;
+	private CANEncoder leftEncoder;
 	
 	private CANSparkMax rightMaster, rightSlave, rightSlaveB;
+	private CANEncoder rightEncoder;
 
 	private DifferentialDrive robotDrive;
-	
-	private static Encoder DTLEncoder;
-	private static Encoder DTREncoder;
 	
 	private int startOfBrownOut = 0;
 
     /**Initialize motors and drive encoders here*/
-    public DriveTrain() {
-
-    	//Initialize encoders
-    	DTLEncoder = new Encoder(EncoderMap.DTL_A, EncoderMap.DTL_B, EncoderMap.DTL_INVERTED);
-    	DTREncoder = new Encoder(EncoderMap.DTR_A, EncoderMap.DTR_B, EncoderMap.DTR_INVERTED);
-    	
-    	leftMaster = new CANSparkMax(DTL_IDs[0], MotorType.kBrushless);
+    public DriveTrain() {	
+    	leftMaster = new CANSparkMax(DTL_IDs[0],  CANSparkMaxLowLevel.MotorType.kBrushless);
     	leftMaster.setInverted(DTL_INVs[0]);
-    	leftSlave = new CANSparkMax(DTL_IDs[1], MotorType.kBrushless);
-    	leftSlave.follow(leftMaster, DTL_INVs[1]);
+    	leftSlave = new CANSparkMax(DTL_IDs[1], CANSparkMaxLowLevel.MotorType.kBrushless);
+		leftSlave.follow(leftMaster, DTL_INVs[1]);
+		leftEncoder = leftMaster.getEncoder();
     	
-    	rightMaster = new CANSparkMax(DTR_IDs[0], MotorType.kBrushless);
+    	rightMaster = new CANSparkMax(DTR_IDs[0], CANSparkMaxLowLevel.MotorType.kBrushless);
     	rightMaster.setInverted(DTR_INVs[0]);
-    	rightSlave = new CANSparkMax(DTR_IDs[1], MotorType.kBrushless);
-    	rightSlave.follow(rightMaster, DTR_INVs[1]);
+    	rightSlave = new CANSparkMax(DTR_IDs[1], CANSparkMaxLowLevel.MotorType.kBrushless);
+		rightSlave.follow(rightMaster, DTR_INVs[1]);
+		rightEncoder = rightMaster.getEncoder();
     	
     	if(DTL_IDs.length == 3){
-    		leftSlaveB = new CANSparkMax(DTL_IDs[2], MotorType.kBrushless);
-    		leftSlaveB.follow(leftMaster, DTL_INVs[2]);
+    		leftSlaveB = new CANSparkMax(DTL_IDs[2], CANSparkMaxLowLevel.MotorType.kBrushless);
+			leftSlaveB.follow(leftMaster, DTL_INVs[2]);	
     	} else leftSlaveB.close();
     	if(DTR_IDs.length == 3){
-    		rightSlaveB = new CANSparkMax(DTR_IDs[2], MotorType.kBrushless);
-    		rightSlaveB.follow(rightMaster, DTR_INVs[2]);
+    		rightSlaveB = new CANSparkMax(DTR_IDs[2], CANSparkMaxLowLevel.MotorType.kBrushless);
+			rightSlaveB.follow(rightMaster, DTR_INVs[2]);
 		} else rightSlaveB.close();
-
+    	
     	robotDrive = new DifferentialDrive(leftMaster, rightMaster);
     }
     
@@ -143,24 +139,23 @@ public class DriveTrain extends Subsystem {
 	}
     
     /*Begin Encoder methods*/
-    public void reset(){
-    	DTLEncoder.reset();
-    	DTREncoder.reset();
-    }
+    // public void reset(){
+	// 	leftEnc.                         //Reset method has not been added
+    // }
     
     public double getDTLCount(){
-    	return DTLEncoder.getDistance();
+    	return leftEncoder.getPosition();
     }
     
     public double getDTRCount(){
-    	return DTREncoder.getDistance();
+    	return rightEncoder.getPosition();
     }
     
     public double getDTLRate(){
-    	return DTLEncoder.getRate();
+    	return rightEncoder.getVelocity();
     }
     
     public double getDTRRate(){
-    	return DTREncoder.getRate();
+    	return rightEncoder.getVelocity();
 	}
 }

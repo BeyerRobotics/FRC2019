@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import frc.robot.subsystems.*;
 import frc.robotMap.inputs.CoprocessorMap;
+import frc.robotMap.inputs.PressureTansducerMap;
 
 /**
  * Declare and initialize all systems here, and call all systems from here. The
@@ -69,6 +70,8 @@ public class Adaptor {
 		climber = Climber.getInstance();
 		
 		arm = Arm.getInstance();
+
+		pressureTransducer = new AnalogInput(PressureTansducerMap.PRESSURE_TRANSDUCER_PORT);
 	}
 	
 	public static Adaptor getInstance(){

@@ -35,6 +35,7 @@ public class Dispatcher {
     // addNum("Pitch", Robot.adaptor.navx.getPitch());
 
     addSendable("Shifters", Robot.adaptor.shifters);
+    addNum("Pressure Transducer", Robot.adaptor.pressureTransducer.getVoltage());
   }
 
   public void addNum(String key, double val) {
