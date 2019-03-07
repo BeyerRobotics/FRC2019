@@ -122,8 +122,8 @@ public class Serial extends Subsystem {
    * Send values over serial that will be constantly updated.
    */
   public void update() {
-    if(IsBrowningOut.get()) varMap.put("b",1); //"b" stands for brownout, 1 is true
-    else varMap.put("b",0);
+    // if(IsBrowningOut.get()) varMap.put("b",1); //"b" stands for brownout, 1 is true
+    // else varMap.put("b",0);
 
     if(Robot.adaptor.ds.getAlliance() == Alliance.Red) varMap.put("c",0); //"c" stands for team color, 1 is blue
     else varMap.put("c",1);

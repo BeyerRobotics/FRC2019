@@ -68,9 +68,11 @@ public class Robot extends TimedRobot {
     	SmartDashboard.putNumber("Roll", Robot.adaptor.navx.getRoll());
 
 		SmartDashboard.putData("Shifters", Robot.adaptor.shifters);
+
+		adaptor.serial.update();
 		
-		adaptor.serial.filter(adaptor.serial.read());
-		SmartDashboard.putNumber("center", adaptor.serial.getData("center"));
+		// adaptor.serial.filter(adaptor.serial.read());
+		// SmartDashboard.putNumber("center", adaptor.serial.getData("center"));
 	}
 
 	/**
@@ -121,9 +123,6 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		// dispatcher.update();
-		// SmartDashboard.putNumber("encoder", adaptor.arm.getArmCount());
-		// SmartDashboard.putNumber("rate", adaptor.arm.getArmRate());
 	}
 
 	/**
