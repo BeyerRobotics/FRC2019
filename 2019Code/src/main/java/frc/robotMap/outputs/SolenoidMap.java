@@ -20,6 +20,9 @@ public class SolenoidMap {
     public static final int BPUSHER_A = 6;
     public static final int BPUSHER_B = 5;
 
+    public static final int BLPUSHER = 6;
+    public static final int BRPUSHER = 7;
+
 	public static final int SHOOTER = 2;
 
 }

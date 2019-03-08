@@ -34,9 +34,13 @@ public class SetBackState extends InstantCommand {
         break;
       case IN:
         Robot.adaptor.climber.shiftBackUp();
+        Robot.adaptor.climber.backLeftHold();
+        Robot.adaptor.climber.backRightHold();
         break;
       case OUT:
-        Robot.adaptor.climber.shiftBackDown();
+        Robot.adaptor.climber.openBack();
+        Robot.adaptor.climber.backLeftDown();
+        Robot.adaptor.climber.backRightDown();
         break;
       default:
         Robot.adaptor.climber.shiftBackUp();

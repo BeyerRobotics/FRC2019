@@ -27,11 +27,23 @@ public class PushForward extends Command {
   @Override
   protected void initialize() {
     Robot.adaptor.navx.reset();
+    Robot.adaptor.climber.openBack();
+    Robot.adaptor.climber.backLeftDown();
+    Robot.adaptor.climber.backRightDown();
   }
 
   @Override
   protected void execute() {
-    Robot.adaptor.climber.shiftBackDown();
+    if(Robot.adaptor.navx.getPitch() > 5) {
+      Robot.adaptor.climber.backLeftHold();
+      Robot.adaptor.climber.backRightDown();
+    } else if(Robot.adaptor.navx.getPitch() < -5) {
+      Robot.adaptor.climber.backRightHold();
+      Robot.adaptor.climber.backLeftDown();
+    } else {
+      Robot.adaptor.climber.backLeftDown();
+      Robot.adaptor.climber.backRightDown();
+    }
   }
 
   @Override
