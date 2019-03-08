@@ -9,8 +9,11 @@ package frc.robot;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import frc.robot.subsystems.*;
 import frc.robotMap.inputs.CoprocessorMap;
@@ -27,11 +30,17 @@ import frc.robotMap.inputs.PressureTansducerMap;
 public class Adaptor {
 	private static Adaptor adaptor;
 	
+	public DriverStation ds;
+
 	public PowerDistributionPanel pdp;
 	
 	public Compressor comp;
 	
 	public AHRS navx;
+
+	public AnalogInput pressureTransducer;
+
+	public UsbCamera cam;
 	
 	public DriveTrain driveTrain;
 
@@ -42,15 +51,24 @@ public class Adaptor {
 	public Climber climber;
 
 	public Arm arm;
-
-	public AnalogInput pressureTransducer;
 	
-	public Adaptor(){
+	public Serial serial;
+
+	public Vision vision;
+	
+	private Adaptor(){
+		ds = DriverStation.getInstance();
+
 		pdp = new PowerDistributionPanel();
 		
 		comp = new Compressor();
 		
 		navx = new AHRS(CoprocessorMap.NAVX_PORT);
+
+		pressureTransducer = new AnalogInput(0);
+
+		cam = CameraServer.getInstance().startAutomaticCapture();
+		cam.setResolution(300, 150);
 		
 		driveTrain = DriveTrain.getInstance();
 
@@ -63,6 +81,10 @@ public class Adaptor {
 		arm = Arm.getInstance();
 
 		pressureTransducer = new AnalogInput(PressureTansducerMap.PRESSURE_TRANSDUCER_PORT);
+
+		serial = Serial.getInstance();
+
+		vision = Vision.getInstance();
 	}
 	
 	public static Adaptor getInstance(){

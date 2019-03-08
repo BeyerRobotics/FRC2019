@@ -8,6 +8,7 @@
 package frc.robot.commands.shoot;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.commands.TimeDelay;
 
 public class Shoot extends CommandGroup {
   /**
@@ -15,7 +16,8 @@ public class Shoot extends CommandGroup {
    *  for one second before they stow.
    */
   public Shoot() {
-      addSequential(new PushOut(), 1);
+      addSequential(new PushOut());
+      addSequential(new TimeDelay(1));
       addSequential(new Stow());
   }
 }

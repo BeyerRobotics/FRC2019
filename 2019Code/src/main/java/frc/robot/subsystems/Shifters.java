@@ -7,10 +7,10 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotStates.DriveGear;
 import frc.robotMap.outputs.SolenoidMap;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 /**
  * Subsystem to track drive gear and change it.
@@ -18,12 +18,12 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 public class Shifters extends Subsystem {
   private static Shifters shifters;
 
-  private DoubleSolenoid pancakes;
+  private Solenoid pancakes;
 
-  public DriveGear gear;
+  public DriveGear gear = DriveGear.LOW;
 
   public Shifters() {
-    pancakes = new DoubleSolenoid(SolenoidMap.SHIFTER_A, SolenoidMap.SHIFTER_B);
+    pancakes = new Solenoid(SolenoidMap.SHIFTER);
   }
 
   public static Shifters getInstance() {
@@ -32,12 +32,12 @@ public class Shifters extends Subsystem {
   }
 
   public void shiftHigh() {
-    pancakes.set(DoubleSolenoid.Value.kForward);
+    pancakes.set(true);
     gear = DriveGear.HIGH;
   }
 
   public void shiftLow() {
-    pancakes.set(DoubleSolenoid.Value.kReverse);
+    pancakes.set(false);
     gear = DriveGear.LOW;
   }
 

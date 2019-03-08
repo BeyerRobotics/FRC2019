@@ -9,14 +9,13 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.RobotStates.ClimbLevel;
-import frc.robotMap.inputs.JoystickMap;
-import frc.robot.RobotStates.ArmLevel;
-import frc.robot.commands.drive.*;
-import frc.robot.commands.climb.*;
+import frc.robot.RobotStates.*;
 import frc.robot.commands.arm.*;
-import frc.robot.commands.shift.*;
-import frc.robot.commands.shoot.Shoot;
+import frc.robot.commands.climb.*;
+import frc.robot.commands.drive.*;
+import frc.robot.commands.shift.Shift;
+import frc.robot.commands.shoot.*;
+import frc.robotMap.inputs.JoystickMap;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -28,33 +27,50 @@ public class OI {
 	private static final int JOYSTICK_NUM = 3;
 	private static final int BUTTON_NUM = 12;
 
-	private static Joystick driverLeft = new Joystick(JoystickMap.DRIVER_LEFT);
-	private static Joystick driverRight = new Joystick(JoystickMap.DRIVER_RIGHT);
-	private static Joystick gunner = new Joystick(JoystickMap.GUNNER);
+	private static Joystick gunnerStick = new Joystick(JoystickMap.GUNNER_STICK);
+	private static Joystick driver = new Joystick(JoystickMap.DRIVER);
+	private static Joystick gunnerButton = new Joystick(JoystickMap.GUNNER_BUTTON);
 
-	private static Joystick[] joysticks = { gunner, driverLeft, driverRight };
+	private static Joystick[] joysticks = { gunnerButton, gunnerStick, driver };
 	private static JoystickButton[][] buttons = new JoystickButton[JOYSTICK_NUM][BUTTON_NUM];
 
 	public OI(){
 		createButtons();
 		
-		getJoystickButton(1,1).whileHeld(new TankDrive(getJoystick(1).getX(), getJoystick(1).getY()));
+		/* BEN */
+		//Gripper
+		getJoystickButton(1, 2).whenPressed(new PushOut());
+		getJoystickButton(1, 2).whenReleased(new Stow());
 
-		getJoystickButton(1,6).whenPressed(new Shoot());
+		//Climb commands
+		getJoystickButton(1, 8).whenPressed(new LevelUp(ClimbLevel.GROUND));  //uncomment this for auto
+		getJoystickButton(1, 10).whenPressed(new LevelUp(ClimbLevel.FIRST));  //uncomment this for auto
+		getJoystickButton(1, 12).whenPressed(new LevelUp(ClimbLevel.SECOND));  //uncomment this for auto
+		// getJoystickButton(1, 7).whenPressed(new SetFrontState(ClimberState.OUT));  //uncomment this for manual
+		// getJoystickButton(1, 8).whenPressed(new SetBackState(ClimberState.OUT));  //uncomment this for manual
+		getJoystickButton(1, 5).whenPressed(new SetFrontState(ClimberState.HOLD));
+		getJoystickButton(1, 6).whenPressed(new SetBackState(ClimberState.HOLD));
+		// getJoystickButton(1, 11).whenPressed(new SetFrontState(ClimberState.IN));  //uncomment this for manual
+		// getJoystickButton(1, 12).whenPressed(new SetBackState(ClimberState.IN));  //uncomment this for manual
+		getJoystickButton(1, 3).whenPressed(new SetFrontState(ClimberState.IN));
+		getJoystickButton(1, 4).whenPressed(new SetBackState(ClimberState.IN));
 
-		getJoystickButton(1,2).whileHeld(new StraightShift(getJoystick(1).getY()));
+		//Manual Arm
+		getJoystickButton(1, 1).whileHeld(new MoveArm(getJoystick(1)));
 
-		getJoystickButton(1,3).whenPressed(new LevelUp(ClimbLevel.GROUND));
-		getJoystickButton(1,4).whenPressed(new ReleaseFront());
-		getJoystickButton(1,5).whenPressed(new ReleaseBack());
-
-		getJoystickButton(0, 5).whenPressed(new SetArmPosition(ArmLevel.TOP));
-		getJoystickButton(0, 3).whenPressed(new SetArmPosition(ArmLevel.MIDDLE));
-		getJoystickButton(0, 6).whenPressed(new SetArmPosition(ArmLevel.BOTTOM));
-		getJoystickButton(0, 4).whenPressed(new SetArmPosition(ArmLevel.STOW));
+		//Arm PID commands
+		getJoystickButton(0, 3).whenPressed(new SetArmPosition(ArmLevel.TOP));
+		getJoystickButton(0, 2).whenPressed(new SetArmPosition(ArmLevel.MIDDLE));
+		getJoystickButton(0, 1).whenPressed(new SetArmPosition(ArmLevel.BOTTOM));
+		getJoystickButton(0, 5).whenPressed(new SetArmPosition(ArmLevel.STOW));
+		getJoystickButton(0, 6).whenPressed(new ResetArmEnc());
 		
-
-		getJoystickButton(0, 1).whileHeld(new MoveArm(getJoystick(0)));
+		
+		/* DAVID */
+		getJoystickButton(2, 6).whileHeld(new TankDrive(getJoystick(2)));
+		getJoystickButton(2, 2).whileHeld(new SlowTankDrive(getJoystick(2)));
+		getJoystickButton(2, 4).whileHeld(new DriveStraight(getJoystick(2), 0));
+		getJoystickButton(2, 1).whenPressed(new Shift());
 	}
 
 	public static OI getInstance() {
@@ -112,5 +128,9 @@ public class OI {
 
 	public Joystick getJoystick(final int joystickNum) {
 		return joysticks[joystickNum];
+	}
+
+	public double average(double val1, double val2) {
+		return (val1 + val2) / 2;
 	}
 }

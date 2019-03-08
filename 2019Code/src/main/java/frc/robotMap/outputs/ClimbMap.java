@@ -12,7 +12,7 @@ package frc.robotMap.outputs;
  * for varying levels of climbing
  */
 public class ClimbMap {
-    public static final int LOW_CLIMB = 30; //Degrees
-    public static final int MID_CLIMB = 40;
-    public static final int HIGH_CLIMB = 50;
+    public static final int LOW_CLIMB = 20;
+    public static final int MID_CLIMB = 16;
+    public static final int HIGH_CLIMB = 25;
 }

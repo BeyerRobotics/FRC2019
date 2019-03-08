@@ -7,6 +7,7 @@
 
 package frc.robot.commands.shift;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.commands.drive.*;
 
@@ -15,9 +16,9 @@ public class StraightShift extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public StraightShift(double speed) {
+  public StraightShift(Joystick joy) {
     addSequential(new Shift());
     shifted = true;
-    if(shifted) addSequential(new DriveStraight(speed, 0));
+    if(shifted) addSequential(new DriveStraight(joy, 0));
   }
 }

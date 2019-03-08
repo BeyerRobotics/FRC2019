@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.climb;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
@@ -13,19 +13,18 @@ import frc.robot.Robot;
 /**
  * Add your docs here.
  */
-public class HoldFront extends InstantCommand {
+public class ZeroYaw extends InstantCommand {
   /**
    * Add your docs here.
    */
-  public HoldFront() {
+  public ZeroYaw() {
     super();
-    requires(Robot.adaptor.climber);
   }
 
   // Called once when the command executes
   @Override
   protected void initialize() {
-    Robot.adaptor.climber.holdFront();
+    Robot.adaptor.navx.zeroYaw();
   }
 
 }

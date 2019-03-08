@@ -25,4 +25,8 @@ public class RobotStates {
     public enum ArmLevel {
         TOP, MIDDLE, BOTTOM, STOW
     }
+
+    public enum ClimberState {
+        OUT, IN, HOLD
+    }
 }

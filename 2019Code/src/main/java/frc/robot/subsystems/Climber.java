@@ -9,7 +9,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.commands.climb.HoldFront;
+import frc.robot.RobotStates.ClimberState;
 import frc.robotMap.outputs.SolenoidMap;
 
 /**
@@ -19,13 +19,10 @@ import frc.robotMap.outputs.SolenoidMap;
 public class Climber extends Subsystem {
   private static Climber climber;
 
+  public ClimberState frontState, backState;
+
   private static DoubleSolenoid frontPusher;
   private static DoubleSolenoid backPusher;
-
-  @Override
-  public void initDefaultCommand() {
-    setDefaultCommand(new HoldFront());
-  }
 
   public Climber() {
     frontPusher = new DoubleSolenoid(SolenoidMap.FPUSHER_A, SolenoidMap.FPUSHER_B);
@@ -39,25 +36,36 @@ public class Climber extends Subsystem {
 
   public void shiftFrontUp() {
     frontPusher.set(DoubleSolenoid.Value.kForward);
+    frontState = ClimberState.IN;
   }
 
   public void shiftFrontDown() {
     frontPusher.set(DoubleSolenoid.Value.kReverse);
+    frontState = ClimberState.OUT;
   }
 
   public void shiftBackUp() {
     backPusher.set(DoubleSolenoid.Value.kReverse);
+    backState = ClimberState.IN;
   }
 
   public void shiftBackDown() {
     backPusher.set(DoubleSolenoid.Value.kForward);
+    backState = ClimberState.OUT;
   }
 
   public void holdFront() {
     frontPusher.set(DoubleSolenoid.Value.kOff);
+    frontState = ClimberState.HOLD;
   }
 
   public void holdBack() {
     backPusher.set(DoubleSolenoid.Value.kOff);
+    backState = ClimberState.HOLD;
+  }
+
+  @Override
+  public void initDefaultCommand() {
+    // setDefaultCommand(new HoldFront());
   }
 }

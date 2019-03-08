@@ -5,47 +5,47 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.climb;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-/**
- * Add your docs here.
- */
-public class PushForward extends Command {
-  private double angle;
-  /**
-   * Actuates rear pistons, isFinished returns true when robot tilts to target angle
-   * @param toAngle Target angle to stop at during actuation
-   */
-  public PushForward(double toAngle) {
-    requires(Robot.adaptor.climber);
-    angle = toAngle;
+public class TurnToCenter extends Command {
+  private static int setpoint = 0;
+  private int error = 100;
+  
+  public TurnToCenter() {
+    requires(Robot.adaptor.driveTrain);
   }
 
+  // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.adaptor.navx.reset();
+    setpoint = Robot.adaptor.vision.getCenter();
   }
 
+  // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.adaptor.climber.shiftBackDown();
+    error = (setpoint - Robot.adaptor.vision.getTarget()) / setpoint;
+    Robot.adaptor.driveTrain.turn(error);
   }
 
+  // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.adaptor.navx.getRoll() < angle;
+    if(error < 5 || error > -5) return true;
+    else return false;
   }
 
   // Called once after isFinished returns true
+  @Override
   protected void end() {
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
+  @Override
   protected void interrupted() {
   }
-
 }

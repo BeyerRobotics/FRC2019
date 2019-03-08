@@ -7,10 +7,8 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.commands.shoot.Stow;
 import frc.robotMap.outputs.SolenoidMap;
 
 /**
@@ -20,23 +18,23 @@ import frc.robotMap.outputs.SolenoidMap;
  */
 public class Shooter extends Subsystem {
   private static Shooter shooter;
-  DoubleSolenoid pitchSolenoid;
+  Solenoid pitchSolenoid;
   
   public Shooter(){
-    pitchSolenoid = new DoubleSolenoid(SolenoidMap.SHOOTER_PITCH_SOLENOID_DEPLOY, SolenoidMap.SHOOTER_PITCH_SOLENOID_RETRACT);
+    pitchSolenoid = new Solenoid(SolenoidMap.SHOOTER);
   }
 
   public void pushOut(){
-    pitchSolenoid.set(Value.kForward);
+    pitchSolenoid.set(true);
   }
 
   public void retract(){
-    pitchSolenoid.set(Value.kReverse);
+    pitchSolenoid.set(false);
   }
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new Stow());
+    // setDefaultCommand(new Stow());
   }
 
   public static Shooter getInstance() {

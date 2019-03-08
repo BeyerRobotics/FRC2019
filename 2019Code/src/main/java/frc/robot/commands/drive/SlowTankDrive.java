@@ -5,47 +5,45 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.climb;
+package frc.robot.commands.drive;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-/**
- * Add your docs here.
- */
-public class PushForward extends Command {
-  private double angle;
-  /**
-   * Actuates rear pistons, isFinished returns true when robot tilts to target angle
-   * @param toAngle Target angle to stop at during actuation
-   */
-  public PushForward(double toAngle) {
-    requires(Robot.adaptor.climber);
-    angle = toAngle;
+public class SlowTankDrive extends Command {
+  private Joystick joy;
+
+  public SlowTankDrive(Joystick joy) {
+    requires(Robot.adaptor.driveTrain);
+    this.joy = joy;
   }
 
+  // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.adaptor.navx.reset();
   }
 
+  // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.adaptor.climber.shiftBackDown();
+    Robot.adaptor.driveTrain.tankDrive(joy.getX()/4, joy.getZ()/4);
   }
 
+  // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.adaptor.navx.getRoll() < angle;
+    return false;
   }
 
   // Called once after isFinished returns true
+  @Override
   protected void end() {
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
+  @Override
   protected void interrupted() {
   }
-
 }

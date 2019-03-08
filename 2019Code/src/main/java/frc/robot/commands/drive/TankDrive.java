@@ -7,16 +7,16 @@
 
 package frc.robot.commands.drive;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 public class TankDrive extends Command {
-  private double left, right;
+  private Joystick joy;
 
-  public TankDrive(double left, double right) {
+  public TankDrive(Joystick joy) {
     requires(Robot.adaptor.driveTrain);
-    this.left = left;
-    this.right = right;
+    this.joy = joy;
   }
 
   // Called just before this Command runs the first time
@@ -27,7 +27,7 @@ public class TankDrive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.adaptor.driveTrain.tankDrive(left, right);
+    Robot.adaptor.driveTrain.tankDrive(joy.getX(), joy.getZ());
   }
 
   // Make this return true when this Command no longer needs to run execute()

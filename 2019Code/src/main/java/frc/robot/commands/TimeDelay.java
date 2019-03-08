@@ -5,27 +5,39 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.climb;
+package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.InstantCommand;
-import frc.robot.Robot;
+import edu.wpi.first.wpilibj.command.TimedCommand;
 
 /**
  * Add your docs here.
  */
-public class ReleaseFront extends InstantCommand {
+public class TimeDelay extends TimedCommand {
   /**
    * Add your docs here.
    */
-  public ReleaseFront() {
-    super();
-    requires(Robot.adaptor.climber);
+  public TimeDelay(double timeout) {
+    super(timeout);
   }
 
-  // Called once when the command executes
+  // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.adaptor.climber.shiftFrontUp();
   }
 
+  // Called repeatedly when this Command is scheduled to run
+  @Override
+  protected void execute() {
+  }
+
+  // Called once after timeout
+  @Override
+  protected void end() {
+  }
+
+  // Called when another command which requires one or more of the same
+  // subsystems is scheduled to run
+  @Override
+  protected void interrupted() {
+  }
 }

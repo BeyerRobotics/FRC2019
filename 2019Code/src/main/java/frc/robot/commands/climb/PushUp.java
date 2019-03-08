@@ -14,8 +14,6 @@ import frc.robot.Robot;
  * Add your docs here.
  */
 public class PushUp extends InstantCommand {
-  private boolean isFinished;
-
   private double angle;
   /**
    * Actuates front pistons, isFinished returns true when robot tilts to target angle
@@ -29,18 +27,16 @@ public class PushUp extends InstantCommand {
   // Called once when the command executes
   @Override
   protected void initialize() {
-    Robot.adaptor.navx.reset();
   }
 
   @Override
   protected void execute() {
-    if(Robot.adaptor.navx.getPitch() < angle) Robot.adaptor.climber.shiftFrontUp();
-    else isFinished = true;
+    Robot.adaptor.climber.shiftFrontDown();
   }
 
   @Override
   protected boolean isFinished() {
-    return isFinished;
+    return Robot.adaptor.navx.getRoll() > angle;
   }
 
   // Called once after isFinished returns true

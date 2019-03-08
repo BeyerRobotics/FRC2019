@@ -12,11 +12,11 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 public class MoveArm extends Command {
-  private Joystick speed;
+  private Joystick joy;
 
-  public MoveArm(Joystick speed) {
+  public MoveArm(Joystick joy) {
     requires(Robot.adaptor.arm);
-    this.speed = speed;
+    this.joy = joy;
   }
 
   // Called just before this Command runs the first time
@@ -27,7 +27,7 @@ public class MoveArm extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-     Robot.adaptor.arm.move(-speed.getY());
+     Robot.adaptor.arm.move(joy);
   }
 
   // Make this return true when this Command no longer needs to run execute()
