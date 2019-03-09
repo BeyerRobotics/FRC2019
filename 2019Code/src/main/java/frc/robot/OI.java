@@ -70,7 +70,8 @@ public class OI {
 		getJoystickButton(2, 6).whileHeld(new TankDrive(getJoystick(2)));
 		getJoystickButton(2, 2).whileHeld(new SlowTankDrive(getJoystick(2)));
 		getJoystickButton(2, 4).whileHeld(new DriveStraight(getJoystick(2), 0));
-		getJoystickButton(2, 1).whenPressed(new Shift());
+		getJoystickButton(2, 1).whenPressed(new PushOut());
+		getJoystickButton(2, 1).whenReleased(new Stow());
 	}
 
 	public static OI getInstance() {

@@ -52,7 +52,9 @@ public class Robot extends TimedRobot {
 
 		SmartDashboard.putString("Gear", "" + adaptor.shifters.gear);
 
-		SmartDashboard.putString("Front Climber", ""+ adaptor.climber.frontState);
+		SmartDashboard.putString("Front Master", ""+ adaptor.climber.frontMasterState);
+		SmartDashboard.putString("Front Left", "" + adaptor.climber.frontLeftState);
+		SmartDashboard.putString("Front Right", "" + adaptor.climber.frontRightState);
 		SmartDashboard.putString("Back Master", ""+ adaptor.climber.backMasterState);
 		SmartDashboard.putString("Back Left", "" + adaptor.climber.backLeftState);
 		SmartDashboard.putString("Back Right", "" + adaptor.climber.backRightState);

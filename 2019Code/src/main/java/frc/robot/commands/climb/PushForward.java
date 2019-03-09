@@ -34,10 +34,10 @@ public class PushForward extends Command {
 
   @Override
   protected void execute() {
-    if(Robot.adaptor.navx.getPitch() > 5) {
+    if(Robot.adaptor.navx.getPitch() > 1) {
       Robot.adaptor.climber.backLeftHold();
       Robot.adaptor.climber.backRightDown();
-    } else if(Robot.adaptor.navx.getPitch() < -5) {
+    } else if(Robot.adaptor.navx.getPitch() < -1) {
       Robot.adaptor.climber.backRightHold();
       Robot.adaptor.climber.backLeftDown();
     } else {

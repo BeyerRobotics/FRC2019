@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotStates.ClimberState;
 import frc.robotMap.outputs.SolenoidMap;
@@ -20,18 +21,22 @@ import frc.robotMap.outputs.SolenoidMap;
 public class Climber extends Subsystem {
   private static Climber climber;
 
-  public ClimberState frontState, backMasterState, backLeftState, backRightState;
+  public ClimberState frontMasterState, frontLeftState, frontRightState, backMasterState, backLeftState, backRightState;
 
-  private static DoubleSolenoid frontPusher;
+  private static DoubleSolenoid frontMaster;
+  private static Solenoid frontLeftPusher;
+  private static Solenoid frontRightPusher;
   private static DoubleSolenoid backMaster;
-  private static DigitalOutput backLeftPusher;
-  private static DigitalOutput backRightPusher;
+  private static Solenoid backLeftPusher;
+  private static Solenoid backRightPusher;
 
   public Climber() {
-    frontPusher = new DoubleSolenoid(SolenoidMap.FPUSHER_A, SolenoidMap.FPUSHER_B);
-    backMaster = new DoubleSolenoid(SolenoidMap.BPUSHER_A, SolenoidMap.BPUSHER_B);
-    backLeftPusher = new DigitalOutput(SolenoidMap.BLPUSHER);
-    backRightPusher = new DigitalOutput(SolenoidMap.BRPUSHER);
+    frontMaster = new DoubleSolenoid(1, SolenoidMap.FPUSHER_A, SolenoidMap.FPUSHER_B);
+    frontLeftPusher = new Solenoid(0, SolenoidMap.FLPUSHER);
+    frontRightPusher = new Solenoid(0, SolenoidMap.FRPUSHER);
+    backMaster = new DoubleSolenoid(1, SolenoidMap.BPUSHER_A, SolenoidMap.BPUSHER_B);
+    backLeftPusher = new Solenoid(0, SolenoidMap.BLPUSHER);
+    backRightPusher = new Solenoid(0 ,SolenoidMap.BRPUSHER);
   }
 
   public static Climber getInstance() {
@@ -40,13 +45,33 @@ public class Climber extends Subsystem {
    }
 
   public void shiftFrontUp() {
-    frontPusher.set(DoubleSolenoid.Value.kForward);
-    frontState = ClimberState.IN;
+    frontMaster.set(DoubleSolenoid.Value.kForward);
+    frontMasterState = ClimberState.IN;
   }
 
-  public void shiftFrontDown() {
-    frontPusher.set(DoubleSolenoid.Value.kReverse);
-    frontState = ClimberState.OUT;
+  public void openFront() {
+    frontMaster.set(DoubleSolenoid.Value.kReverse);
+    frontMasterState = ClimberState.OUT;
+  }
+
+  public void frontLeftDown() {
+    frontLeftPusher.set(true);
+    frontLeftState = ClimberState.OUT;
+  }
+
+  public void frontLeftHold() {
+    frontLeftPusher.set(false);
+    frontLeftState = ClimberState.HOLD;
+  }
+
+  public void frontRightDown() {
+    frontRightPusher.set(true);
+    frontRightState = ClimberState.OUT;
+  }
+
+  public void frontRightHold() {
+    backRightPusher.set(false);
+    frontRightState = ClimberState.HOLD;
   }
 
   public void openBack() {
@@ -80,8 +105,8 @@ public class Climber extends Subsystem {
   }
 
   public void holdFront() {
-    frontPusher.set(DoubleSolenoid.Value.kOff);
-    frontState = ClimberState.HOLD;
+    frontMaster.set(DoubleSolenoid.Value.kOff);
+    frontMasterState = ClimberState.HOLD;
   }
 
   public void holdBack() {
