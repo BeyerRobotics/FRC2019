@@ -13,7 +13,6 @@ import frc.robot.RobotStates.*;
 import frc.robot.commands.arm.*;
 import frc.robot.commands.climb.*;
 import frc.robot.commands.drive.*;
-import frc.robot.commands.shift.Shift;
 import frc.robot.commands.shoot.*;
 import frc.robotMap.inputs.JoystickMap;
 
