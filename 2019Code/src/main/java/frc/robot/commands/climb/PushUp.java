@@ -27,11 +27,24 @@ public class PushUp extends InstantCommand {
   // Called once when the command executes
   @Override
   protected void initialize() {
+    Robot.adaptor.navx.reset();
+    Robot.adaptor.climber.openFront();
+    Robot.adaptor.climber.frontLeftDown();
+    Robot.adaptor.climber.frontRightDown();
   }
 
   @Override
   protected void execute() {
-    Robot.adaptor.climber.shiftFrontDown();
+    if(Robot.adaptor.navx.getPitch() > 1) {
+      Robot.adaptor.climber.frontLeftHold();
+      Robot.adaptor.climber.frontRightDown();
+    } else if(Robot.adaptor.navx.getPitch() < -1) {
+      Robot.adaptor.climber.frontRightHold();
+      Robot.adaptor.climber.frontLeftDown();
+    } else {
+      Robot.adaptor.climber.frontLeftDown();
+      Robot.adaptor.climber.frontRightDown();
+    }
   }
 
   @Override

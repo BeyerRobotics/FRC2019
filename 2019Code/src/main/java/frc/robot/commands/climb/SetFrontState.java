@@ -34,14 +34,17 @@ public class SetFrontState extends InstantCommand {
         break;
       case IN:
         Robot.adaptor.climber.shiftFrontUp();
+        Robot.adaptor.climber.frontLeftHold();
+        Robot.adaptor.climber.frontRightHold();
         break;
       case OUT:
-        Robot.adaptor.climber.shiftFrontDown();
+        Robot.adaptor.climber.openFront();
+        Robot.adaptor.climber.frontLeftDown();
+        Robot.adaptor.climber.frontRightDown();
         break;
       default:
         Robot.adaptor.climber.shiftFrontUp();
         break;
     }
   }
-
 }

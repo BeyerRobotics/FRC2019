@@ -21,7 +21,7 @@ public class Shooter extends Subsystem {
   Solenoid pitchSolenoid;
   
   public Shooter(){
-    pitchSolenoid = new Solenoid(SolenoidMap.SHOOTER);
+    pitchSolenoid = new Solenoid(1, SolenoidMap.SHOOTER);
   }
 
   public void pushOut(){

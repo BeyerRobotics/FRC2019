@@ -23,7 +23,7 @@ public class Shifters extends Subsystem {
   public DriveGear gear = DriveGear.LOW;
 
   public Shifters() {
-    pancakes = new Solenoid(SolenoidMap.SHIFTER);
+    pancakes = new Solenoid(1, SolenoidMap.SHIFTER);
   }
 
   public static Shifters getInstance() {

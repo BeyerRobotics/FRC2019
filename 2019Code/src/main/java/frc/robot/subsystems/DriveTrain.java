@@ -86,7 +86,7 @@ public class DriveTrain extends Subsystem {
 			rightSlaveB.follow(rightMaster, DTR_INVs[2]);
 		} else rightSlaveB.close();
     	
-    	robotDrive = new DifferentialDrive(leftMaster, rightMaster);
+		robotDrive = new DifferentialDrive(leftMaster, rightMaster);
     }
     
     public static DriveTrain getInstance(){

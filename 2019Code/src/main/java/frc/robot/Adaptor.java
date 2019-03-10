@@ -65,8 +65,6 @@ public class Adaptor {
 		
 		navx = new AHRS(CoprocessorMap.NAVX_PORT);
 
-		pressureTransducer = new AnalogInput(0);
-
 		cam = CameraServer.getInstance().startAutomaticCapture();
 		cam.setResolution(300, 150);
 		

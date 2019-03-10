@@ -46,8 +46,9 @@ public class OI {
 		getJoystickButton(1, 8).whenPressed(new LevelUp(ClimbLevel.GROUND));  //uncomment this for auto
 		getJoystickButton(1, 10).whenPressed(new LevelUp(ClimbLevel.FIRST));  //uncomment this for auto
 		getJoystickButton(1, 12).whenPressed(new LevelUp(ClimbLevel.SECOND));  //uncomment this for auto
-		// getJoystickButton(1, 7).whenPressed(new SetFrontState(ClimberState.OUT));  //uncomment this for manual
-		// getJoystickButton(1, 8).whenPressed(new SetBackState(ClimberState.OUT));  //uncomment this for manual
+		getJoystickButton(1, 7).whenPressed(new SetFrontState(ClimberState.OUT));  //uncomment this for manual
+		getJoystickButton(1, 7).whenReleased(new SetFrontState(ClimberState.HOLD));
+		getJoystickButton(1, 9).whenPressed(new SetBackState(ClimberState.OUT));  //uncomment this for manual
 		getJoystickButton(1, 5).whenPressed(new SetFrontState(ClimberState.HOLD));
 		getJoystickButton(1, 6).whenPressed(new SetBackState(ClimberState.HOLD));
 		// getJoystickButton(1, 11).whenPressed(new SetFrontState(ClimberState.IN));  //uncomment this for manual
@@ -70,7 +71,8 @@ public class OI {
 		getJoystickButton(2, 6).whileHeld(new TankDrive(getJoystick(2)));
 		getJoystickButton(2, 2).whileHeld(new SlowTankDrive(getJoystick(2)));
 		getJoystickButton(2, 4).whileHeld(new DriveStraight(getJoystick(2), 0));
-		getJoystickButton(2, 1).whenPressed(new Shift());
+		getJoystickButton(2, 1).whenPressed(new PushOut());
+		getJoystickButton(2, 1).whenReleased(new Stow());
 	}
 
 	public static OI getInstance() {
