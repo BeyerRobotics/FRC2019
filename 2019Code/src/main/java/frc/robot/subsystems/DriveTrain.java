@@ -163,4 +163,23 @@ public class DriveTrain extends Subsystem {
     public double getDTRRate(){
     	return rightEncoder.getVelocity();
 	}
+
+	//Checks for the hottest motor on the left and right side of the drivetrain
+	public double getHottestTempature(){
+		double leftMaxA, rightMaxA;
+		double leftMax, rightMax;
+
+		if(DTL_IDs.length == 3 && DTR_IDs.length == 3){
+			leftMaxA = Math.max(leftMaster.getMotorTemperature(), leftSlaveB.getMotorTemperature());
+			leftMax = Math.max(leftMaxA, leftSlave.getMotorTemperature());
+			rightMaxA = Math.max(rightMaster.getMotorTemperature(), rightSlaveB.getMotorTemperature());
+			rightMax = Math.max(rightMaxA, leftSlave.getMotorTemperature());
+			return Math.max(leftMax, rightMax);
+		} 
+		else if (DTL_IDs.length == 2 && DTR_IDs.length == 2) {
+			leftMax = Math.max(leftMaster.getMotorTemperature(), leftSlave.getMotorTemperature());
+			rightMax = Math.max(rightMaster.getMotorTemperature(), rightSlave.getMotorTemperature());
+			return Math.max(leftMax, rightMax);
+	 	} else return 0;
+	}
 }
