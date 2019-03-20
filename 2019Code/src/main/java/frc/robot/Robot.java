@@ -77,6 +77,8 @@ public class Robot extends TimedRobot {
 
 		SmartDashboard.putData("Shifters", Robot.adaptor.shifters);
 
+		SmartDashboard.putNumber("Hottest Motor Temp", Robot.adaptor.driveTrain.getHottestTempature());
+
 		adaptor.serial.update();
 		
 		// adaptor.serial.filter(adaptor.serial.read());
