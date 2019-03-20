@@ -13,6 +13,7 @@ import frc.robot.RobotStates.*;
 import frc.robot.commands.arm.*;
 import frc.robot.commands.climb.*;
 import frc.robot.commands.drive.*;
+import frc.robot.commands.shift.Shift;
 import frc.robot.commands.shoot.*;
 import frc.robotMap.inputs.JoystickMap;
 
@@ -43,10 +44,10 @@ public class OI {
 
 		//Climb commands
 		getJoystickButton(1, 8).whenPressed(new LevelUp(ClimbLevel.GROUND));  //uncomment this for auto
-		getJoystickButton(1, 10).whenPressed(new LevelUp(ClimbLevel.FIRST));  //uncomment this for auto
-		getJoystickButton(1, 12).whenPressed(new LevelUp(ClimbLevel.SECOND));  //uncomment this for auto
 		getJoystickButton(1, 7).whenPressed(new SetFrontState(ClimberState.OUT));  //uncomment this for manual
 		getJoystickButton(1, 7).whenReleased(new SetFrontState(ClimberState.HOLD));
+		// getJoystickButton(1, 10).whenPressed(new LevelUp(ClimbLevel.FIRST));  //uncomment this for auto
+		getJoystickButton(1, 12).whenPressed(new LevelUp(ClimbLevel.SECOND));  //uncomment this for auto
 		getJoystickButton(1, 9).whenPressed(new SetBackState(ClimberState.OUT));  //uncomment this for manual
 		getJoystickButton(1, 5).whenPressed(new SetFrontState(ClimberState.HOLD));
 		getJoystickButton(1, 6).whenPressed(new SetBackState(ClimberState.HOLD));
@@ -65,13 +66,12 @@ public class OI {
 		getJoystickButton(0, 5).whenPressed(new SetArmPosition(ArmLevel.STOW));
 		getJoystickButton(0, 6).whenPressed(new ResetArmEnc());
 		
-		
 		/* DAVID */
-		getJoystickButton(2, 6).whileHeld(new TankDrive(getJoystick(2)));
-		getJoystickButton(2, 2).whileHeld(new SlowTankDrive(getJoystick(2)));
-		getJoystickButton(2, 4).whileHeld(new DriveStraight(getJoystick(2), 0));
-		getJoystickButton(2, 1).whenPressed(new PushOut());
-		getJoystickButton(2, 1).whenReleased(new Stow());
+		getJoystickButton(2, 6).whileHeld(new TankDrive(getJoystick(2))); //far left shoulder
+		getJoystickButton(2, 2).whileHeld(new SlowTankDrive(getJoystick(2)));  //inner left shoulder
+		getJoystickButton(2, 1).whenPressed(new Shift());  //far right shoulder
+		getJoystickButton(2, 4).whenPressed(new PushOut());  //inner right shoulder
+		getJoystickButton(2, 4).whenReleased(new Stow());
 	}
 
 	public static OI getInstance() {

@@ -15,7 +15,7 @@ import frc.robot.Robot;
 public class IsBrowningOut {
 
     public static boolean get() {
-        if(Robot.adaptor.pdp.getVoltage() < 10) {
+        if(Robot.adaptor.pdp.getVoltage() < 9.5) {
             return true;
         } else {
             return false;

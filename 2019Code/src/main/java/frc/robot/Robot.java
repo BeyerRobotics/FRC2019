@@ -48,6 +48,9 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void robotPeriodic() {
+		if(Math.abs(adaptor.navx.getPitch()) > 45) Log.fatal("Entire Robot", 
+															"Help I've fallen and I can't get up");
+
 		SmartDashboard.putNumber("Pressure", adaptor.pressureTransducer.getVoltage()*(165/5));
 
 		SmartDashboard.putString("Gear", "" + adaptor.shifters.gear);

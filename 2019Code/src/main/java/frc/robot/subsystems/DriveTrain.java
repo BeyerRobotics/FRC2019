@@ -66,23 +66,30 @@ public class DriveTrain extends Subsystem {
     /**Initialize motors and drive encoders here*/
     public DriveTrain() {	
     	leftMaster = new CANSparkMax(DTL_IDs[0],  CANSparkMaxLowLevel.MotorType.kBrushless);
-    	leftMaster.setInverted(DTL_INVs[0]);
+		leftMaster.setInverted(DTL_INVs[0]);
+		leftMaster.setOpenLoopRampRate(0.5);
     	leftSlave = new CANSparkMax(DTL_IDs[1], CANSparkMaxLowLevel.MotorType.kBrushless);
 		leftSlave.follow(leftMaster, DTL_INVs[1]);
+		leftSlave.setOpenLoopRampRate(0.5);
 		leftEncoder = leftMaster.getEncoder();
     	
     	rightMaster = new CANSparkMax(DTR_IDs[0], CANSparkMaxLowLevel.MotorType.kBrushless);
-    	rightMaster.setInverted(DTR_INVs[0]);
+		rightMaster.setInverted(DTR_INVs[0]);
+		rightMaster.setOpenLoopRampRate(0.5);
     	rightSlave = new CANSparkMax(DTR_IDs[1], CANSparkMaxLowLevel.MotorType.kBrushless);
 		rightSlave.follow(rightMaster, DTR_INVs[1]);
+		rightSlave.setOpenLoopRampRate(0.5);
 		rightEncoder = rightMaster.getEncoder();
     	
     	if(DTL_IDs.length == 3){
-    		leftSlaveB = new CANSparkMax(DTL_IDs[2], CANSparkMaxLowLevel.MotorType.kBrushless);
+			leftSlaveB = new CANSparkMax(DTL_IDs[2], CANSparkMaxLowLevel.MotorType.kBrushless);
+			leftSlaveB.setOpenLoopRampRate(0.5);
 			leftSlaveB.follow(leftMaster, DTL_INVs[2]);	
+			Log.info("Drive Train", "Initialized with 6 motors");
     	} else leftSlaveB.close();
     	if(DTR_IDs.length == 3){
-    		rightSlaveB = new CANSparkMax(DTR_IDs[2], CANSparkMaxLowLevel.MotorType.kBrushless);
+			rightSlaveB = new CANSparkMax(DTR_IDs[2], CANSparkMaxLowLevel.MotorType.kBrushless);
+			rightSlaveB.setOpenLoopRampRate(0.5);
 			rightSlaveB.follow(rightMaster, DTR_INVs[2]);
 		} else rightSlaveB.close();
     	
@@ -104,7 +111,7 @@ public class DriveTrain extends Subsystem {
 		if(IsBrowningOut.get()) {
 			robotDrive.setMaxOutput(0.75);
 			if(startOfBrownOut == 0) {
-				Log.recoverable("Voltage", "The voltage dropped below 10V.");
+				Log.recoverable("Voltage", "The voltage dropped below 9.5V.");
 				startOfBrownOut = 1;
 			}
 		} else {
@@ -118,7 +125,7 @@ public class DriveTrain extends Subsystem {
 		if(IsBrowningOut.get()) {
 			robotDrive.setMaxOutput(0.75);
 			if(startOfBrownOut == 0) {
-				Log.recoverable("Voltage", "The voltage dropped below 10V.");
+				Log.recoverable("Voltage", "The voltage dropped below 9.5V.");
 				startOfBrownOut = 1;
 			}
 		} else {
