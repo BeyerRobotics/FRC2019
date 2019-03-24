@@ -5,11 +5,19 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robotMap.inputs;
+package frc.robot.commands.climb;
 
-/**
- * Add your docs here.
- */
-public class PressureTansducerMap {
-    public static final int PRESSURE_TRANSDUCER_PORT = 0;
+import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.Log;
+import frc.robot.RobotStates.ClimberState;
+
+public class Help extends CommandGroup {
+  /**
+   * Add your docs here.
+   */
+  public Help() {
+      addParallel(new SetFrontState(ClimberState.IN));
+      addParallel(new SetBackState(ClimberState.IN));
+      Log.fatal("Entire Robot", "Help I've Fallen and I Can't Get Up");
+  }
 }

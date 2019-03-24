@@ -32,11 +32,11 @@ public class Arm extends Subsystem{
   
   public Arm() {
     motor = new WPI_TalonSRX(MotorControllerMap.ARM_MOTOR);
-    motor.configPeakCurrentLimit(15);
-    motor.configContinuousCurrentLimit(15);
-    motor.configPeakCurrentDuration(0);
+    // motor.configPeakCurrentLimit(15);
+    // motor.configContinuousCurrentLimit(15);
+    // motor.configPeakCurrentDuration(0);
     motor.configOpenloopRamp(1);
-    motor.enableCurrentLimit(true);
+    // motor.enableCurrentLimit(true);
     SmartDashboard.putNumber("P", 1.5);
     SmartDashboard.putNumber("I", 2.0);
     SmartDashboard.putNumber("D", 0.0);
@@ -117,7 +117,7 @@ public class Arm extends Subsystem{
   }
 
   public void move(Joystick joy){
-      motor.set(-joy.getY()/2);
+      motor.set(-joy.getY() * .75);
   }
 
   public double getArmDegrees(){

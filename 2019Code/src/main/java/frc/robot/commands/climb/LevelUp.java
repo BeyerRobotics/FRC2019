@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Log;
 import frc.robot.RobotStates.ClimbLevel;
 import frc.robot.RobotStates.ClimberState;
+import frc.robot.commands.TimeDelay;
 import frc.robotMap.outputs.ClimbMap;
 
 public class LevelUp extends CommandGroup {
@@ -36,6 +37,7 @@ public class LevelUp extends CommandGroup {
       case SECOND:
         addSequential(new PushUp(ClimbMap.HIGH_CLIMB));
         addSequential(new SetFrontState(ClimberState.HOLD)); //runs when PushUp() is done
+        addSequential(new TimeDelay(2));
         addSequential(new PushForward(-3));
         addSequential(new SetBackState(ClimberState.HOLD));
         Log.info("Climber", "Yay! You climbed L3! (probably)");

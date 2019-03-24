@@ -14,5 +14,5 @@ package frc.robotMap.outputs;
 public class ClimbMap {
     public static final int LOW_CLIMB = 20;
     public static final int MID_CLIMB = 16;
-    public static final int HIGH_CLIMB = 25;
+    public static final int HIGH_CLIMB = 30;
 }

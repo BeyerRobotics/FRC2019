@@ -11,8 +11,6 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotStates.ClimberState;
-import frc.robot.commands.ZeroYaw;
-import frc.robot.commands.arm.ResetArmEnc;
 import frc.robot.commands.climb.SetBackState;
 import frc.robot.commands.climb.SetFrontState;
 
@@ -25,7 +23,7 @@ import frc.robot.commands.climb.SetFrontState;
  */
 public class Robot extends TimedRobot {
 	public static Adaptor adaptor;
-  	public static OI oi;
+  	public OI oi;
 	public static Log log;
 	public static RobotStates robotStates;
 	public static Dispatcher dispatcher;
@@ -47,10 +45,7 @@ public class Robot extends TimedRobot {
 	}
 
 	@Override
-	public void robotPeriodic() {
-		if(Math.abs(adaptor.navx.getPitch()) > 45) Log.fatal("Entire Robot", 
-															"Help I've fallen and I can't get up");
-
+	public void robotPeriodic() {								
 		SmartDashboard.putNumber("Pressure", adaptor.pressureTransducer.getVoltage()*(165/5));
 
 		SmartDashboard.putString("Gear", "" + adaptor.shifters.gear);
@@ -63,19 +58,19 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putString("Back Right", "" + adaptor.climber.backRightState);
 
 		SmartDashboard.putNumber("Voltage", Robot.adaptor.pdp.getVoltage());
-    	SmartDashboard.putData("DriveTrain", Robot.adaptor.driveTrain); //Will show command that is using the subsystem
+    	// SmartDashboard.putData("DriveTrain", Robot.adaptor.driveTrain); //Will show command that is using the subsystem
 
-    	SmartDashboard.putData("Arm", Robot.adaptor.arm);
+    	// SmartDashboard.putData("Arm", Robot.adaptor.arm);
 		SmartDashboard.putNumber("Arm Encoder", Robot.adaptor.arm.getArmDegrees());
-		SmartDashboard.putNumber("Raw Arm", Robot.adaptor.arm.getRaw());
-    	SmartDashboard.putData("Reset Arm Encoder", new ResetArmEnc());
+		// SmartDashboard.putNumber("Raw Arm", Robot.adaptor.arm.getRaw());
+    	// SmartDashboard.putData("Reset Arm Encoder", new ResetArmEnc());
 
     	SmartDashboard.putNumber("Yaw", Robot.adaptor.navx.getYaw());
-    	SmartDashboard.putData("Reset Yaw", new ZeroYaw());
+    	// SmartDashboard.putData("Reset Yaw", new ZeroYaw());
 		SmartDashboard.putNumber("pitch", Robot.adaptor.navx.getRoll());
 		SmartDashboard.putNumber("roll", Robot.adaptor.navx.getPitch());
 
-		SmartDashboard.putData("Shifters", Robot.adaptor.shifters);
+		// SmartDashboard.putData("Shifters", Robot.adaptor.shifters);
 
 		SmartDashboard.putNumber("Hottest Motor Temp", Robot.adaptor.driveTrain.getHottestTempature());
 

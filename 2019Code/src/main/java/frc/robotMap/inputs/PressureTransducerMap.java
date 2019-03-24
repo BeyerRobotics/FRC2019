@@ -5,14 +5,11 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robotMap.outputs;
+package frc.robotMap.inputs;
 
 /**
  * Add your docs here.
  */
-public class ArmMap {
-    public static final int STOW_VAL = 0;
-    public static final int BOTTOM_VAL = 7;
-    public static final int MID_VAL = 80;
-    public static final int TOP_VAL = 133;  //118
+public class PressureTransducerMap {
+    public static final int PRESSURE_TRANSDUCER_PORT = 0;
 }

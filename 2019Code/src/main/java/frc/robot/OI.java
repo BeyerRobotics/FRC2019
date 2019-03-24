@@ -15,6 +15,7 @@ import frc.robot.commands.climb.*;
 import frc.robot.commands.drive.*;
 import frc.robot.commands.shift.Shift;
 import frc.robot.commands.shoot.*;
+import frc.robot.triggers.HasTipped;
 import frc.robotMap.inputs.JoystickMap;
 
 /**
@@ -34,6 +35,8 @@ public class OI {
 	private static Joystick[] joysticks = { gunnerButton, gunnerStick, driver };
 	private static JoystickButton[][] buttons = new JoystickButton[JOYSTICK_NUM][BUTTON_NUM];
 
+	private HasTipped tipTrigger = new HasTipped();
+
 	public OI(){
 		createButtons();
 		
@@ -49,6 +52,7 @@ public class OI {
 		// getJoystickButton(1, 10).whenPressed(new LevelUp(ClimbLevel.FIRST));  //uncomment this for auto
 		getJoystickButton(1, 12).whenPressed(new LevelUp(ClimbLevel.SECOND));  //uncomment this for auto
 		getJoystickButton(1, 9).whenPressed(new SetBackState(ClimberState.OUT));  //uncomment this for manual
+		getJoystickButton(1, 9).whenReleased(new SetBackState(ClimberState.HOLD));
 		getJoystickButton(1, 5).whenPressed(new SetFrontState(ClimberState.HOLD));
 		getJoystickButton(1, 6).whenPressed(new SetBackState(ClimberState.HOLD));
 		// getJoystickButton(1, 11).whenPressed(new SetFrontState(ClimberState.IN));  //uncomment this for manual
@@ -69,9 +73,11 @@ public class OI {
 		/* DAVID */
 		getJoystickButton(2, 6).whileHeld(new TankDrive(getJoystick(2))); //far left shoulder
 		getJoystickButton(2, 2).whileHeld(new SlowTankDrive(getJoystick(2)));  //inner left shoulder
-		getJoystickButton(2, 1).whenPressed(new Shift());  //far right shoulder
-		getJoystickButton(2, 4).whenPressed(new PushOut());  //inner right shoulder
-		getJoystickButton(2, 4).whenReleased(new Stow());
+		getJoystickButton(2, 8).whenPressed(new Shift());  //far right shoulder
+		getJoystickButton(2, 7).whenPressed(new PushOut());  //inner right shoulder
+		getJoystickButton(2, 7).whenReleased(new Stow());
+
+		tipTrigger.whenActive(new Help());
 	}
 
 	public static OI getInstance() {

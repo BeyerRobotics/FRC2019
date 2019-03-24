@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import frc.robot.subsystems.*;
 import frc.robotMap.inputs.CoprocessorMap;
-import frc.robotMap.inputs.PressureTansducerMap;
+import frc.robotMap.inputs.PressureTransducerMap;
 
 /**
  * Declare and initialize all systems here, and call all systems from here. The
@@ -40,7 +40,8 @@ public class Adaptor {
 
 	public AnalogInput pressureTransducer;
 
-	public UsbCamera cam;
+	public UsbCamera armCam;
+	public UsbCamera topCam;
 	
 	public DriveTrain driveTrain;
 
@@ -65,8 +66,10 @@ public class Adaptor {
 		
 		navx = new AHRS(CoprocessorMap.NAVX_PORT);
 
-		cam = CameraServer.getInstance().startAutomaticCapture();
-		cam.setResolution(300, 150);
+		armCam = CameraServer.getInstance().startAutomaticCapture("arm", 0);
+		armCam.setResolution(150, 150);
+		topCam = CameraServer.getInstance().startAutomaticCapture("top", 1);
+		topCam.setResolution(150, 150);
 		
 		driveTrain = DriveTrain.getInstance();
 
@@ -78,7 +81,7 @@ public class Adaptor {
 		
 		arm = Arm.getInstance();
 
-		pressureTransducer = new AnalogInput(PressureTansducerMap.PRESSURE_TRANSDUCER_PORT);
+		pressureTransducer = new AnalogInput(PressureTransducerMap.PRESSURE_TRANSDUCER_PORT);
 
 		serial = Serial.getInstance();
 
